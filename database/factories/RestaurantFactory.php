@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\User;
 use App\Models\Currency;
 use App\Models\Restaurant;
 
@@ -25,6 +26,7 @@ class RestaurantFactory extends Factory
             'name' => '{}',
             'description' => '{}',
             'currency_id' => Currency::factory(),
+            'user_id' => User::factory(),
         ];
     }
 }

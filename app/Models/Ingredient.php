@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Traits\BelongsToRestaurant;
 
 class Ingredient extends Model
 {
-    use HasFactory;
+    use HasFactory, BelongsToRestaurant;
 
     /**
      * The attributes that should be cast to native types.

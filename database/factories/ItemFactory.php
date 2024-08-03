@@ -25,7 +25,7 @@ class ItemFactory extends Factory
         return [
             'name' => '{}',
             'description' => '{}',
-            'price' => $this->faker->randomFloat(0, 0, 9999999999.),
+            'price' => $this->faker->randomFloat(2, 1, 1000),
             'category_id' => Category::factory(),
             'restaurant_id' => Restaurant::factory(),
         ];
