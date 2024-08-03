@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Traits\BelongsToRestaurant;
+use Spatie\Translatable\HasTranslations;
 
 class Menu extends Model
 {
-    use HasFactory, BelongsToRestaurant;
+    use HasFactory, BelongsToRestaurant, HasTranslations;
+
+    public array $translatable = ['name', 'description'];
 
     protected function casts(): array
     {

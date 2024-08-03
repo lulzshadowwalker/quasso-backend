@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\BelongsToRestaurant;
+use Spatie\Translatable\HasTranslations;
 
 class ItemOptionValue extends Model
 {
-    use HasFactory, BelongsToRestaurant;
+    use HasFactory, BelongsToRestaurant, HasTranslations;
+
+    public array $translatable = ['value'];
 
     protected function casts(): array
     {

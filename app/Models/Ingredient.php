@@ -7,17 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Traits\BelongsToRestaurant;
+use Spatie\Translatable\HasTranslations;
 
 class Ingredient extends Model
 {
-    use HasFactory, BelongsToRestaurant;
+    use HasFactory, BelongsToRestaurant, HasTranslations;
+
+    public array $translatable = ['name'];
 
     protected function casts(): array
     {
         return [
             'id' => 'integer',
             'name' => 'array',
-            'description' => 'array',
             'restaurant_id' => 'integer',
             'icon_id' => 'integer',
         ];

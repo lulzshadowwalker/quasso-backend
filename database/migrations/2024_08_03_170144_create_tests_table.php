@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ingredients', function (Blueprint $table) {
+        Schema::create('tests', function (Blueprint $table) {
             $table->id();
-            $table->json('name');
-            $table->string('icon')->nullable();
-            $table->string('color')->nullable();
-            $table->foreignId('restaurant_id');
-            $table->foreignId('icon_id');
+            $table->foreignId('restaurant_id')->index();
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ingredients');
+        Schema::dropIfExists('tests');
     }
 };

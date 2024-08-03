@@ -24,7 +24,6 @@ class IngredientFactory extends Factory
     {
         return [
             'name' => '{"en": "'.$this->faker->name().'"}',
-            'description' => '{"en": "'.$this->faker->paragraph().'"}',
             'icon' => $this->faker->word(),
             'color' => $this->faker->word(),
             'restaurant_id' => Restaurant::factory(),

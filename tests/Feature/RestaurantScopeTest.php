@@ -16,13 +16,13 @@ class RestaurantScopeTest extends TestCase
     public function test_a_model_is_scoped_to_a_restaurant()
     {
         $now = now();
+        $this->artisan('make:model Test -m');
+
         $filename = $now->year . '_' . $now->format('m') . '_' . $now->format('d') . '_' . $now->format('h')
             . $now->format('i') . $now->format('s') .
             '_create_tests_table.php';
 
         try {
-            $this->artisan('make:model Test -m');
-
             $this->assertTrue(File::exists(database_path('migrations/' . $filename)));
 
             $this->assertStringContainsString(

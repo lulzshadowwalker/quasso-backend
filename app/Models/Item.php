@@ -10,12 +10,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\BelongsToRestaurant;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Translatable\HasTranslations;
 
 class Item extends Model implements HasMedia
 {
-    use HasFactory, BelongsToRestaurant, InteractsWithMedia;
+    use HasFactory, BelongsToRestaurant, InteractsWithMedia, HasTranslations;
 
     const MEDIA_COLLECTION = 'items';
+
+    public array $translatable = ['name', 'description'];
 
     protected function casts(): array
     {
