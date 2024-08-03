@@ -7,10 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Restaurant extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($restaurant) {
+            // TODO: Double check when adding Spatie translatable
+            $restaurant->slug = Str::slug(json_decode($restaurant->name, true)['en']);
+        });
+    }
 
     /**
      * The attributes that should be cast to native types.

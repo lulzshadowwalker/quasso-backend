@@ -6,7 +6,6 @@ use App\Models\Item;
 use App\Models\Restaurant;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\File;
 use Tests\TestCase;
 

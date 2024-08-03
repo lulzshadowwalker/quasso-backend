@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\Role;
 use App\Models\Category;
 use App\Models\Item;
 use App\Models\Restaurant;
@@ -19,12 +20,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Super admin
+        User::factory()->create([
+            'name' => 'lulzie',
+            'email' => 'lulzie@example.com',
+            'password' => bcrypt('lulzie'),
+            'role' => Role::SUPER_ADMIN,
+        ]);
+
         $restaurant = Restaurant::factory()->for(
             User::factory()->create([
-                'name' => 'lulzie',
-                'email' => 'luzlie@example.com',
-                'password' => bcrypt('lulzie'),
+                'name' => 'not-lulzie',
+                'email' => 'not-lulzie@example.com',
+                'password' => bcrypt('not-lulzie'),
+                'role' => Role::RESTAURANT_OWNER,
             ])
         )->create();
 

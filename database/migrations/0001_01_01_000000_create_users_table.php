@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('role', ['SUPER_ADMIN', 'RESTAURANT_OWNER'])->default('RESTAURANT_OWNER');
             $table->rememberToken();
             $table->timestamps();
         });
