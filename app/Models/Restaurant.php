@@ -9,10 +9,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Restaurant extends Model
+class Restaurant extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, InteractsWithMedia;
+
+    const MEDIA_COLLECTION = 'restaurants';
 
     public static function boot()
     {
@@ -24,17 +28,15 @@ class Restaurant extends Model
         });
     }
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'id' => 'integer',
-        'name' => 'array',
-        'description' => 'array',
-        'currency_id' => 'integer',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'id' => 'integer',
+            'name' => 'array',
+            'description' => 'array',
+            'currency_id' => 'integer',
+        ];
+    }
 
     public function currency(): BelongsTo
     {

@@ -8,24 +8,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\BelongsToRestaurant;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Item extends Model
+class Item extends Model implements HasMedia
 {
-    use HasFactory, BelongsToRestaurant;
+    use HasFactory, BelongsToRestaurant, InteractsWithMedia;
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'id' => 'integer',
-        'name' => 'array',
-        'description' => 'array',
-        'price' => 'decimal',
-        'category_id' => 'integer',
-        'restaurant_id' => 'integer',
-    ];
+    const MEDIA_COLLECTION = 'items';
+
+    protected function casts(): array
+    {
+        return [
+            'id' => 'integer',
+            'name' => 'array',
+            'description' => 'array',
+            'price' => 'decimal',
+            'category_id' => 'integer',
+            'restaurant_id' => 'integer',
+        ];
+    }
 
     public function category(): BelongsTo
     {

@@ -11,18 +11,16 @@ class ItemOptionValue extends Model
 {
     use HasFactory, BelongsToRestaurant;
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'id' => 'integer',
-        'value' => 'array',
-        'price_modifier' => 'decimal',
-        'item_option_id' => 'integer',
-        'restaurant_id' => 'integer',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'id' => 'integer',
+            'value' => 'array',
+            'price_modifier' => 'decimal',
+            'item_option_id' => 'integer',
+            'restaurant_id' => 'integer',
+        ];
+    }
 
     public function itemOption(): BelongsTo
     {
