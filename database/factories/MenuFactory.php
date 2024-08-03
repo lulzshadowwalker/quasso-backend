@@ -22,8 +22,8 @@ class MenuFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => '{}',
-            'description' => '{}',
+            'name' => '{"en": "'.$this->faker->name().'"}',
+            'description' => '{"en": "'.$this->faker->paragraph().'"}',
             'is_scheduled' => $this->faker->boolean(),
             'start_time' => $this->faker->word(),
             'end_time' => $this->faker->word(),

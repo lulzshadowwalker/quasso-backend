@@ -23,8 +23,8 @@ class IngredientFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => '{}',
-            'description' => '{}',
+            'name' => '{"en": "'.$this->faker->name().'"}',
+            'description' => '{"en": "'.$this->faker->paragraph().'"}',
             'icon' => $this->faker->word(),
             'color' => $this->faker->word(),
             'restaurant_id' => Restaurant::factory(),

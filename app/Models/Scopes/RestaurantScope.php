@@ -13,6 +13,6 @@ class RestaurantScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        $builder->where('restaurant_id', auth()->user()->restaurant->id);
+      //  $builder->where('restaurant_id', auth()->user()->restaurant->id);
     }
 }

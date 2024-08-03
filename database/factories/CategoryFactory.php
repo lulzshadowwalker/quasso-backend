@@ -22,8 +22,8 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => '{}',
-            'description' => '{}',
+            'name' => '{"en": "'.$this->faker->name().'"}',
+            'description' => '{"en": "'.$this->faker->paragraph().'"}',
             'restaurant_id' => Restaurant::factory(),
         ];
     }

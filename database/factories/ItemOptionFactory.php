@@ -23,7 +23,7 @@ class ItemOptionFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => '{}',
+            'name' => '{"en": "'.$this->faker->name().'"}',
             'item_id' => Item::factory(),
             'restaurant_id' => Restaurant::factory(),
         ];

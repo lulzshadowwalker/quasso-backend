@@ -23,8 +23,8 @@ class RestaurantFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => '{}',
-            'description' => '{}',
+            'name' => '{"en": "'.$this->faker->name().'"}',
+            'description' => '{"en": "'.$this->faker->paragraph().'"}',
             'currency_id' => Currency::factory(),
             'user_id' => User::factory(),
         ];

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('icons', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->enum('source', ["FONT_AWESOME"]);
             $table->timestamps();
         });

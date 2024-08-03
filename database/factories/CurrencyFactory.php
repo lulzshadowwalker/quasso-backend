@@ -21,9 +21,9 @@ class CurrencyFactory extends Factory
     public function definition(): array
     {
         return [
-            'code' => $this->faker->word(),
             'name' => $this->faker->name(),
-            'symbol' => $this->faker->word(),
+            'code' => $this->faker->currencyCode(),
+            'symbol' => $this->faker->randomLetter(),
         ];
     }
 }
