@@ -18,24 +18,26 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Outerweb\FilamentTranslatableFields\Filament\Plugins\FilamentTranslatableFieldsPlugin;
 
 class DashboardPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->default()
             ->id('dashboard')
             ->path('dashboard')
             ->login()
             ->colors([
                 'primary' => Color::Amber,
             ])
-            ->discoverResources(in: app_path('Filament/Restaurant/Resources'), for: 'App\\Filament\\Restaurant\\Resources')
-            ->discoverPages(in: app_path('Filament/Restaurant/Pages'), for: 'App\\Filament\\Restaurant\\Pages')
+            ->discoverResources(in: app_path('Filament/dashboard/Resources'), for: 'App\\Filament\\dashboard\\Resources')
+            ->discoverPages(in: app_path('Filament/dashboard/Pages'), for: 'App\\Filament\\dashboard\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Restaurant/Widgets'), for: 'App\\Filament\\Restaurant\\Widgets')
+            ->discoverWidgets(in: app_path('Filament/dashboard/Widgets'), for: 'App\\Filament\\dashboard\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
@@ -54,6 +56,10 @@ class DashboardPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->plugin(SpatieLaravelTranslatablePlugin::make());
+            ->plugins([
+                SpatieLaravelTranslatablePlugin::make()
+                    ->defaultLocales(['en']),
+                FilamentTranslatableFieldsPlugin::make(),
+            ]);
     }
 }

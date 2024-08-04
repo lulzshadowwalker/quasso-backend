@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Casts\TimeCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Traits\BelongsToRestaurant;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Spatie\Translatable\HasTranslations;
 
 class Menu extends Model
@@ -23,6 +25,8 @@ class Menu extends Model
             'description' => 'array',
             'is_scheduled' => 'boolean',
             'restaurant_id' => 'integer',
+            'start_time' =>  TimeCast::class,
+            'end_time' => TimeCast::class,
         ];
     }
 

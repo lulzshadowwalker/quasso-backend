@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 use App\Models\Menu;
 use App\Models\Restaurant;
 
@@ -21,12 +21,16 @@ class MenuFactory extends Factory
      */
     public function definition(): array
     {
+        $isScheduled = $this->faker->boolean();
+        $startTime = $isScheduled ? $this->faker->time() : null;
+        $endTime = $isScheduled ? Carbon::parse($startTime)->addHours(2)->toString() : null;
+
         return [
             'name' => '{"en": "'.$this->faker->name().'"}',
             'description' => '{"en": "'.$this->faker->paragraph().'"}',
-            'is_scheduled' => $this->faker->boolean(),
-            'start_time' => $this->faker->word(),
-            'end_time' => $this->faker->word(),
+            'is_scheduled' => $isScheduled,
+            'start_time' => $startTime,
+            'end_time' => $endTime,
             'restaurant_id' => Restaurant::factory(),
         ];
     }

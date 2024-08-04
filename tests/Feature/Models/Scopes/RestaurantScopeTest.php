@@ -6,6 +6,7 @@ use App\Models\Item;
 use App\Models\Restaurant;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Tests\TestCase;
 
@@ -13,21 +14,20 @@ class RestaurantScopeTest extends TestCase
 {
     use RefreshDatabase;
 
+    public $mockConsoleOutput = false;
+
     public function test_a_model_is_scoped_to_a_restaurant()
     {
-        $now = now();
-        $this->artisan('make:model Test -m');
-
-        $filename = $now->year . '_' . $now->format('m') . '_' . $now->format('d') . '_' . $now->format('h')
-            . $now->format('i') . $now->format('s') .
-            '_create_tests_table.php';
-
         try {
-            $this->assertTrue(File::exists(database_path('migrations/' . $filename)));
+            Artisan::call('make:model', ['name' => 'Test', '--migration' => true]);
+
+            $migrationFilename = $this->getMigrationFilenameFromOutput(Artisan::output());
+
+            $this->assertTrue(File::exists(database_path('migrations/' . $migrationFilename)));
 
             $this->assertStringContainsString(
-                '$table->foreignId(\'restaurant_id\')->index();',
-                File::get(database_path('migrations/' . $filename))
+                '$table->foreignId(\'restaurant_id\')->constrained();',
+                File::get(database_path('migrations/' . $migrationFilename))
             );
 
             $this->assertStringContainsString(
@@ -35,7 +35,7 @@ class RestaurantScopeTest extends TestCase
                 File::get(app_path('Models/Test.php'))
             );
         } finally {
-            File::delete(database_path('migrations/' . $filename));
+            File::delete(database_path('migrations/' . $migrationFilename));
             File::delete(app_path('Models/Test.php'));
         }
     }
@@ -73,5 +73,11 @@ class RestaurantScopeTest extends TestCase
         Item::factory(10)->create(['restaurant_id' => $restaurant2->id]);
 
         $this->assertCount(10, Item::all());
+    }
+
+    protected function getMigrationFilenameFromOutput(string $output): string
+    {
+        preg_match('/Migration \[database\/migrations\/(.*\.php)\] created successfully\./', $output, $matches);
+        return $matches[1];
     }
 }

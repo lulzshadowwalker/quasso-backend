@@ -16,8 +16,8 @@ return new class extends Migration
             $table->json('name');
             $table->json('description')->nullable();
             $table->boolean('is_scheduled')->default(false);
-            $table->string('start_time')->nullable();
-            $table->string('end_time')->nullable();
+            $table->time('start_time')->nullable();
+            $table->time('end_time')->nullable();
             $table->foreignId('restaurant_id');
             $table->timestamps();
         });
