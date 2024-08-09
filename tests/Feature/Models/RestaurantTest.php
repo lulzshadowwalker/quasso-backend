@@ -14,8 +14,6 @@ class RestaurantTest extends TestCase
     public function test_slug_is_automatically_inferred_and_assigned_from_the_name(): void
     {
         $restaurant = Restaurant::factory()->create();
-        $name = json_decode($restaurant->name, true)['en'];
-
-        $this->assertEquals(Str::slug($name), $restaurant->slug);
+        $this->assertEquals(Str::slug($restaurant->getTranslation('name', 'en')), $restaurant->slug);
     }
 }

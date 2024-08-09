@@ -26,8 +26,7 @@ class Restaurant extends Model implements HasMedia
         parent::boot();
 
         static::creating(function ($restaurant) {
-            // TODO: Double check when adding Spatie translatable
-            $restaurant->slug = Str::slug(json_decode($restaurant->name, true)['en']);
+            $restaurant->slug = Str::slug($restaurant->getTranslation('name', 'en'));
         });
     }
 

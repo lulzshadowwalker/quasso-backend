@@ -26,8 +26,8 @@ class MenuFactory extends Factory
         $endTime = $isScheduled ? Carbon::parse($startTime)->addHours(2)->toString() : null;
 
         return [
-            'name' => '{"en": "'.$this->faker->name().'"}',
-            'description' => '{"en": "'.$this->faker->paragraph().'"}',
+            'name' => ['en' => $this->faker->word()],
+            'description' => ['en' => $this->faker->sentence()],
             'is_scheduled' => $isScheduled,
             'start_time' => $startTime,
             'end_time' => $endTime,

@@ -23,7 +23,7 @@ class ItemOptionValueFactory extends Factory
     public function definition(): array
     {
         return [
-            'value' => '{"en": "'.$this->faker->name().'"}',
+            'value' => ['en' => $this->faker->word()],
             'price_modifier' => $this->faker->randomFloat(0, 0, 9999999999.),
             'item_option_id' => ItemOption::factory(),
             'restaurant_id' => Restaurant::factory(),
