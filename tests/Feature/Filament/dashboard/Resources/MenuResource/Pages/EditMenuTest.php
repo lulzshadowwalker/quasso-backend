@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Feature\Filament\dashboard\Resources\MenuResource\Pages;
+namespace Tests\Feature\Filament\dashboard\Resources\MenuResource\Pages;
 
 use Tests\TestCase;
 

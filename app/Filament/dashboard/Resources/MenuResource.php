@@ -3,18 +3,16 @@
 namespace App\Filament\dashboard\Resources;
 
 use App\Filament\dashboard\Resources\MenuResource\Pages;
-use App\Filament\dashboard\Resources\MenuResource\RelationManagers;
 use App\Models\Menu;
 use App\Rules\EndTimeAfterStartTime;
-use Closure;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Concerns\Translatable;
+use Outerweb\FilamentTranslatableFields\Filament\Plugins\FilamentTranslatableFieldsPlugin;
+
 
 class MenuResource extends Resource
 {

@@ -3,13 +3,7 @@
 namespace Test\Feature\Filament\dashboard\Resources\MenuResource\Pages;
 
 use App\Filament\dashboard\Resources\MenuResource;
-use App\Filament\dashboard\Resources\MenuResource\Pages\CreateMenu;
-use App\Providers\Filament\AdminPanelProvider;
-use App\Providers\Filament\DashboardPanelProvider;
-use Filament\Facades\Filament;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Livewire\Livewire;
-use Outerweb\FilamentTranslatableFields\Filament\Plugins\FilamentTranslatableFieldsPlugin;
 use Tests\TestCase;
 use Tests\Traits\WithRestaurantOwner;
 
