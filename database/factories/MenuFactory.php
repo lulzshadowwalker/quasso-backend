@@ -23,7 +23,7 @@ class MenuFactory extends Factory
     {
         $isScheduled = $this->faker->boolean();
         $startTime = $isScheduled ? $this->faker->time() : null;
-        $endTime = $isScheduled ? Carbon::parse($startTime)->addHours(2)->toString() : null;
+        $endTime = $isScheduled ? Carbon::parse($startTime)->addHours(2) : null;
 
         return [
             'name' => ['en' => $this->faker->word()],

@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Filament\dashboard\Resources\MenuResource\Pages;
 
-use App\Filament\dashboard\Resources\MenuResource\Pages\CreateMenu;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\Traits\WithRestaurantOwner;
@@ -45,9 +44,8 @@ class EditMenuTest extends TestCase
         $this->assertEquals($this->menu->name, $new->name);
         $this->assertEquals($this->menu->description, $new->description);
         $this->assertEquals($this->menu->is_scheduled, $new->is_scheduled);
-        $this->assertEquals($this->menu->start_time, $new->start_time);
-        $this->assertEquals($this->menu->end_time, $new->end_time);
-    }
+        $this->assertEquals($this->menu->start_time->timestamp, $new->start_time->timestamp);
+        $this->assertEquals($this->menu->end_time->timestamp, $new->end_time->timestamp);}
 
     public function test_form_is_pre_populated_with_menu_data(): void
     {
@@ -56,6 +54,7 @@ class EditMenuTest extends TestCase
                 'name.en' => $this->menu->name,
                 'description.en' => $this->menu->description,
                 'is_scheduled' => $this->menu->is_scheduled,
+                // format this in 24 hours format 21:05:57
                 'start_time' => $this->menu->start_time->format('h:i:s'),
                 'end_time' => $this->menu->end_time->format('h:i:s'),
             ]);

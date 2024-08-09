@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Filament\dashboard\Resources\MenuResource\Pages;
 
 use App\Filament\dashboard\Resources\MenuResource;
 use App\Filament\dashboard\Resources\MenuResource\Pages\ListMenus;
@@ -20,14 +20,14 @@ class ListMenusTest extends TestCase
         $this->get(MenuResource::getUrl('index'))->assertOk();
     }
 
-    public function test_list_menu_page_contains_create_menu_button()
+    public function test_list_menus_page_contains_create_menu_button()
     {
         $this->get(MenuResource::getUrl('index'))
             ->assertSuccessful()
             ->assertSee('create');
     }
 
-    public function test_list_menu_page_contains_menu_records()
+    public function test_list_menus_page_contains_menu_records()
     {
         Menu::factory()->new()->create([
             'is_scheduled' => true,
