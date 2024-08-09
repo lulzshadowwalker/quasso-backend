@@ -9,8 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class CategoryResource extends Resource
 {
@@ -22,7 +21,7 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-           Forms\Components\Section::make('Category Details')
+                Forms\Components\Section::make('Category Details')
                     ->description('Provide the basic information about the category.')
                     ->icon('heroicon-o-information-circle')
                     ->aside()
@@ -45,22 +44,25 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-            Tables\Columns\TextColumn::make('name')
-                ->description(fn(Category $category) => $category->description)
-                ->sortable(),
-            Tables\Columns\TextColumn::make('items')
-                ->badge()
-                ->alignCenter()
-                ->getStateUsing(fn (Category $category) => $category->items->count()),
-            Tables\Columns\TextColumn::make('created_at')
-                ->dateTime()
-                ->sortable()
-                ->formatStateUsing(fn ($state) => $state->diffForHumans())
-                ->toggleable(isToggledHiddenByDefault: true),
-            Tables\Columns\TextColumn::make('updated_at')
-                ->dateTime()
-                ->sortable()
-                ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('name')
+                    ->description(fn(Category $category) => Str::words($category->description, 8))
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('items')
+                    ->badge()
+                    ->alignCenter()
+                    ->getStateUsing(fn(Category $category) => $category->items->count()),
+
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->formatStateUsing(fn($state) => $state->diffForHumans())
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

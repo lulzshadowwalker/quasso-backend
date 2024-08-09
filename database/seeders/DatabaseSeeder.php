@@ -37,9 +37,10 @@ class DatabaseSeeder extends Seeder
             ])
         )->create();
 
+        $categories = Category::factory()->count(5)->for($restaurant)->create();
         Item::factory(20)
             ->for($restaurant)
-            ->for(Category::factory()->create())
+            ->recycle($categories)
             ->create();
     }
 }

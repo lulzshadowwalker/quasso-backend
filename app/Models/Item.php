@@ -26,7 +26,7 @@ class Item extends Model implements HasMedia
             'id' => 'integer',
             'name' => 'array',
             'description' => 'array',
-            'price' => 'decimal',
+            'price' => 'decimal:2',
             'category_id' => 'integer',
             'restaurant_id' => 'integer',
         ];

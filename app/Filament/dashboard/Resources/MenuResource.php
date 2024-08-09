@@ -36,10 +36,12 @@ class MenuResource extends Resource
                             ->placeholder('Enter the name of the menu')
                             ->required()
                             ->translatable(),
+
                         Forms\Components\TextInput::make('description')
                             ->label('Description')
                             ->placeholder('Enter the description of the menu')
                             ->translatable(),
+
                         Forms\Components\Toggle::make('is_scheduled')
                             ->label('Scheduled')
                             ->live()
@@ -56,6 +58,7 @@ class MenuResource extends Resource
                             ->label('Start Time')
                             ->hint('enter the start time of the menu')
                             ->requiredIf('is_scheduled', true),
+
                         Forms\Components\TimePicker::make('end_time')
                             ->label('End Time')
                             ->hint('enter the end time of the menu')
