@@ -22,7 +22,7 @@ class ItemResource extends JsonResource
                 'description' => $this->description,
                 'price' => [
                     'value' => $this->price,
-                    'currency' => $this->restaurant->currency->code,
+                    'currency' => CurrencyResource::make($this->restaurant->currency),
                 ],
             ],
             'links' => [
