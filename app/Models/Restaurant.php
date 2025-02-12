@@ -26,7 +26,9 @@ class Restaurant extends Model implements HasMedia
         parent::boot();
 
         static::creating(function ($restaurant) {
-            $restaurant->slug = Str::slug($restaurant->getTranslation('name', 'en'));
+            if (! $restaurant->slug) {
+                $restaurant->slug = Str::slug($restaurant->getTranslation('name', 'en'));
+            }
         });
     }
 
