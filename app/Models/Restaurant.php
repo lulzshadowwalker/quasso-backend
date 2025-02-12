@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,8 +17,6 @@ use Spatie\Translatable\HasTranslations;
 class Restaurant extends Model implements HasMedia
 {
     use HasFactory, SoftDeletes, InteractsWithMedia, HasTranslations;
-
-    const MEDIA_COLLECTION = 'restaurants';
 
     public array $translatable = ['name', 'description'];
 
@@ -76,4 +75,30 @@ class Restaurant extends Model implements HasMedia
     {
         return $this->belongsTo(User::class);
     }
+
+    const MEDIA_COLLECTION_LOGO = 'logo';
+
+    public function registerMediaCollections(): void
+    {
+        $name = Str::replace(' ', '+', $this->fullName);
+
+        $this->addMediaCollection(self::MEDIA_COLLECTION_LOGO)
+            ->useFallbackUrl("https://ui-avatars.com/api/?name={$name}")
+            ->singleFile();
+    }
+
+    public function logo(): Attribute
+    {
+        return Attribute::get(
+            fn() => $this->getFirstMediaUrl(self::MEDIA_COLLECTION_LOGO) ?: null
+        );
+    }
+
+    public function logoFile(): Attribute
+    {
+        return Attribute::get(
+            fn() => $this->getFirstMedia(self::MEDIA_COLLECTION_LOGO) ?: null
+        );
+    }
+
 }

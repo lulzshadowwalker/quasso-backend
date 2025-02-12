@@ -16,8 +16,6 @@ class Item extends Model implements HasMedia
 {
     use HasFactory, BelongsToRestaurant, InteractsWithMedia, HasTranslations;
 
-    const MEDIA_COLLECTION = 'items';
-
     public array $translatable = ['name', 'description'];
 
     protected function casts(): array

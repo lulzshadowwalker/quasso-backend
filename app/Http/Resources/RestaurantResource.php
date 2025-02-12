@@ -21,6 +21,7 @@ class RestaurantResource extends JsonResource
                 'name' => $this->name,
                 'description' => $this->description,
                 'currency' => CurrencyResource::make($this->currency),
+                'logo' => $this->logo,
             ],
             'links' => (object) [],
             'relationships' => (object) [],
