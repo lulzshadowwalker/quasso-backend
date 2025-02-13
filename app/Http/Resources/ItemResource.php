@@ -3,9 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class ItemResource extends JsonResource
+class ItemResource extends BaseJsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,8 +19,9 @@ class ItemResource extends JsonResource
             'attributes' => [
                 'name' => $this->name,
                 'description' => $this->description,
+                //  TODO: When adding something like Brick/Money we need to wrap all the prices in http resources into a PriceResource
                 'price' => [
-                    'value' => $this->price,
+                    'amount' => $this->price,
                     'currency' => CurrencyResource::make($this->restaurant->currency),
                 ],
             ],
@@ -45,6 +45,10 @@ class ItemResource extends JsonResource
                         'id' => (string) $this->restaurant_id,
                     ],
                 ],
+            ],
+            'includes' => (object) [
+                'category' => $this->mergeWhen($this->includes('category'), CategoryResource::make($this->category)),
+                'restaurant' => $this->mergewhen($this->includes('restaurant'), RestaurantResource::make($this->restaurant)),
             ],
         ];
     }

@@ -32,12 +32,13 @@ return Application::configure(basePath: dirname(__DIR__))
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             // 'throttle:api',
             LanguageMiddleware::class,
+            RestaurantMiddleware::class,
             SubstituteBindings::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        if (!request()->is('api/*')) return;
-        if (config('app.debug')) return;
+        // if (!request()->is('api/*')) return;
+        // if (config('app.debug')) return;
 
         $exceptions->render(function (AuthenticationException $exception, Request $request) {
             $builder = new JsonResponseBuilder();

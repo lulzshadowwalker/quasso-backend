@@ -42,5 +42,7 @@ class DatabaseSeeder extends Seeder
             ->for($restaurant)
             ->recycle($categories)
             ->create();
+
+        Restaurant::factory()->count(50)->create();
     }
 }

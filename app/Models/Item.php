@@ -11,11 +11,14 @@ use App\Traits\BelongsToRestaurant;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Builder;
+use App\Filters\QueryFilter;
 
 class Item extends Model implements HasMedia
 {
     use HasFactory, BelongsToRestaurant, InteractsWithMedia, HasTranslations;
 
+    //  TODO: Add a slug to items ?
     public array $translatable = ['name', 'description'];
 
     protected function casts(): array
@@ -30,6 +33,7 @@ class Item extends Model implements HasMedia
         ];
     }
 
+    //  TODO: Shouldn't a item be allowed to belong to multiple categories ?
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
@@ -53,5 +57,10 @@ class Item extends Model implements HasMedia
     public function menus(): BelongsToMany
     {
         return $this->belongsToMany(Menu::class);
+    }
+
+    public function scopeFilter(Builder $builder, QueryFilter $filters): Builder
+    {
+        return $filters->apply($builder);
     }
 }

@@ -3,9 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryResource extends JsonResource
+class CategoryResource extends BaseJsonResource
 {
     /**
      * Transform the resource into an array.
@@ -35,6 +34,10 @@ class CategoryResource extends JsonResource
                         'id' => (string) $this->restaurant->id,
                     ],
                 ],
+            ],
+            'includes' => (object) [
+                'items' => $this->mergeWhen($this->includes('items'), ItemResource::collection($this->items)),
+                'restaurant' => $this->mergewhen($this->includes('restaurant'), RestaurantResource::make($this->restaurant)),
             ],
         ];
     }

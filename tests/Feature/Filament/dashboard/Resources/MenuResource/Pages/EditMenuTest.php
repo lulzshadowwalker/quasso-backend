@@ -5,12 +5,10 @@ namespace Tests\Feature\Filament\dashboard\Resources\MenuResource\Pages;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\Traits\WithRestaurantOwner;
-use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Traits\WithFilamentTranslatableFieldsPlugin;
 use App\Filament\dashboard\Resources\MenuResource;
 use App\Filament\dashboard\Resources\MenuResource\Pages\EditMenu;
 use App\Models\Menu;
-use App\Models\Restaurant;
 use Tests\TestCase;
 
 class EditMenuTest extends TestCase
@@ -59,8 +57,8 @@ class EditMenuTest extends TestCase
                 'name.en' => $this->menu->name,
                 'description.en' => $this->menu->description,
                 'is_scheduled' => $this->menu->is_scheduled,
-                'start_time' => $this->menu->start_time->format('h:i:s'),
-                'end_time' => $this->menu->end_time->format('h:i:s'),
+                'start_time' => $this->menu->start_time->format('H:i:s'),
+                'end_time' => $this->menu->end_time->format('H:i:s'),
             ]);
     }
 }

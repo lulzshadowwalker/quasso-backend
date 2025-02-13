@@ -6,10 +6,10 @@ use App\Http\Controllers\Api\RestaurantController;
 use App\Http\Middleware\RestaurantMiddleware;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/restaurants', [RestaurantController::class, 'index'])->name('api.restaurants.index');
-Route::get('/restaurants/{restaurant}', [RestaurantController::class, 'show'])->name('api.restaurants.show');
+Route::get('/restaurants', [RestaurantController::class, 'index'])->name('api.restaurants.index')->withoutMiddleware(RestaurantMiddleware::class);
+Route::get('/restaurants/{restaurant}', [RestaurantController::class, 'show'])->name('api.restaurants.show')->withoutMiddleware(RestaurantMiddleware::class);
 
-Route::middleware(RestaurantMiddleware::class)->domain('{restuarant:slug}.' . config('app.domain'))->group(function () {
+Route::domain('{restuarant:slug}.' . config('app.domain'))->group(function () {
     Route::get('/items', [ItemController::class, 'index'])->name('api.items.index');
     Route::get('/items/{item}', [ItemController::class, 'show'])->name('api.items.show');
 
