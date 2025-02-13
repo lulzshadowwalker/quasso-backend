@@ -80,7 +80,7 @@ class Restaurant extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $name = Str::replace(' ', '+', $this->fullName);
+        $name = Str::replace(' ', '+', $this->name);
 
         $this->addMediaCollection(self::MEDIA_COLLECTION_LOGO)
             ->useFallbackUrl("https://ui-avatars.com/api/?name={$name}")
