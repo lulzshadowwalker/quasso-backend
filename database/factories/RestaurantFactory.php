@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 use App\Models\Currency;
 use App\Models\Restaurant;
+use Illuminate\Support\Str;
 
 class RestaurantFactory extends Factory
 {
@@ -21,9 +22,12 @@ class RestaurantFactory extends Factory
      */
     public function definition(): array
     {
+        $name = ['en' => $this->faker->name(), 'ru' => $this->faker->name()];
+        $slug = Str::slug($name['en']);
 
         return [
-            'name' => ['en' => $this->faker->name(), 'ru' => $this->faker->name()],
+            'name' => $name,
+            'slug' =>  $slug,
             'description' => ['en' => $this->faker->paragraph()],
             'currency_id' => Currency::factory(),
             'user_id' => User::factory(),

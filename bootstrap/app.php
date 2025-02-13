@@ -33,7 +33,6 @@ return Application::configure(basePath: dirname(__DIR__))
             // 'throttle:api',
             LanguageMiddleware::class,
             SubstituteBindings::class,
-            RestaurantMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

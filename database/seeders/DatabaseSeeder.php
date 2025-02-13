@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('not-lulzie'),
                 'role' => Role::RESTAURANT_OWNER,
             ])
-        )->create();
+        )->create(['slug' => 'example']);
 
         $categories = Category::factory()->count(5)->for($restaurant)->create();
         Item::factory(20)
