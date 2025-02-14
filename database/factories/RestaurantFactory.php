@@ -22,7 +22,7 @@ class RestaurantFactory extends Factory
      */
     public function definition(): array
     {
-        $name = ['en' => $this->faker->name(), 'ru' => $this->faker->name()];
+        $name = ['en' => $this->faker->unique()->name(), 'ru' => $this->faker->name()];
         $slug = Str::slug($name['en']);
 
         return [

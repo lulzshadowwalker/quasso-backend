@@ -44,16 +44,6 @@ class Item extends Model implements HasMedia
         return $this->belongsTo(Restaurant::class);
     }
 
-    public function itemOptions(): HasMany
-    {
-        return $this->hasMany(ItemOption::class);
-    }
-
-    public function ingredients(): BelongsToMany
-    {
-        return $this->belongsToMany(Ingredient::class);
-    }
-
     public function menus(): BelongsToMany
     {
         return $this->belongsToMany(Menu::class);

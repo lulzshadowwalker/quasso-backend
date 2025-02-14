@@ -22,7 +22,7 @@ class ItemFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => ['en' => $this->faker->word()],
+            'name' => ['en' => $this->faker->word(rand(1, 5))],
             'description' => ['en' => $this->faker->paragraph()],
             'price' => $this->faker->randomFloat(2, 1, 1000),
             'category_id' => Category::factory(),

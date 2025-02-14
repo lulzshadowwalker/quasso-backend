@@ -34,9 +34,6 @@ class InitializeApp extends Command
         Artisan::call('upsert:language');
         $this->info('Language upserted successfully.');
 
-        Artisan::call('upsert:icons');
-        $this->info('Icons upserted successfully.');
-
         $this->info('⏺ Application initialized successfully.');
     }
 }

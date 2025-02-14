@@ -37,8 +37,9 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        // if (!request()->is('api/*')) return;
-        // if (config('app.debug')) return;
+        if (!request()->is('api/*')) return;
+        if (config('app.debug')) return;
+        if (app()->environment('testing')) return;
 
         $exceptions->render(function (AuthenticationException $exception, Request $request) {
             $builder = new JsonResponseBuilder();

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Enums\Role;
 use App\Models\Category;
+use App\Models\Currency;
 use App\Models\Item;
 use App\Models\Restaurant;
 use App\Models\User;
@@ -43,6 +44,6 @@ class DatabaseSeeder extends Seeder
             ->recycle($categories)
             ->create();
 
-        Restaurant::factory()->count(50)->create();
+        Restaurant::factory()->count(10)->for(Currency::first())->create();
     }
 }
