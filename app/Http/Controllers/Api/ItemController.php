@@ -15,7 +15,7 @@ class ItemController extends ApiController
 
     public function show(string $restaurant, string $language, Item $item)
     {
-        $includes = ['category', 'restaurant'];
+        $includes = ['categories', 'restaurant', 'optionGroups'];
         foreach ($includes as $include) {
             if ($this->includes($include)) {
                 $item->load($include);

@@ -19,11 +19,10 @@ class ItemResource extends BaseJsonResource
             'attributes' => [
                 'name' => $this->name,
                 'description' => $this->description,
-                //  TODO: When adding something like Brick/Money we need to wrap all the prices in http resources into a PriceResource
-                'price' => [
+                'price' => PriceResource::make((object) [
                     'amount' => $this->price,
-                    'currency' => CurrencyResource::make($this->restaurant->currency),
-                ],
+                    'currency' => $this->restaurant->currency,
+                ]),
             ],
             'links' => [
                 'self' => route('api.items.show', [
@@ -42,8 +41,9 @@ class ItemResource extends BaseJsonResource
                 ],
             ],
             'includes' => (object) [
-                'category' => $this->mergeWhen($this->includes('category'), CategoryResource::make($this->category)),
+                'categories' => $this->mergeWhen($this->includes('categories'), CategoryResource::collection($this->categories)),
                 'restaurant' => $this->mergewhen($this->includes('restaurant'), RestaurantResource::make($this->restaurant)),
+                'optionGroups' => $this->mergewhen($this->includes('optionGroups'), OptionGroupResource::collection($this->optionGroups)),
             ],
         ];
     }

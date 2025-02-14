@@ -13,7 +13,7 @@ class ItemFilter extends QueryFilter
 
     public function include($relationships)
     {
-        $allowedRelationships = ['category', 'restaurant'];
+        $allowedRelationships = ['categories', 'restaurant', 'optionGroups'];
 
         $relationships = explode(',', $relationships);
         $relationships = array_intersect($relationships, $allowedRelationships);
