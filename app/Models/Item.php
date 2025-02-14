@@ -12,6 +12,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filters\QueryFilter;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Item extends Model implements HasMedia
 {
@@ -39,6 +40,11 @@ class Item extends Model implements HasMedia
     public function restaurant(): BelongsTo
     {
         return $this->belongsTo(Restaurant::class);
+    }
+
+    public function optionGroups(): HasMany
+    {
+        return $this->hasMany(OptionGroup::class);
     }
 
     public function menus(): BelongsToMany

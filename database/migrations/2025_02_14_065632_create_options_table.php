@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('options', function (Blueprint $table) {
             $table->id();
-            $table->json('name');
-            $table->json('description')->nullable();
+            $table->foreignId('restaurant_id')->constrained();
+            $table->foreignId('option_group_id')->constrained();
+            $table->string('name');
             $table->decimal('price', 10, 2);
-            $table->foreignId('restaurant_id');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('options');
     }
 };

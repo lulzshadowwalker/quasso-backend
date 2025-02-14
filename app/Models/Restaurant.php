@@ -71,6 +71,16 @@ class Restaurant extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
+    public function optionGroups(): HasMany
+    {
+        return $this->hasMany(OptionGroup::class);
+    }
+
+    public function options(): HasMany
+    {
+        return $this->hasMany(Option::class);
+    }
+
     const MEDIA_COLLECTION_LOGO = 'logo';
 
     public function registerMediaCollections(): void
@@ -95,5 +105,4 @@ class Restaurant extends Model implements HasMedia
             fn() => $this->getFirstMedia(self::MEDIA_COLLECTION_LOGO) ?: null
         );
     }
-
 }

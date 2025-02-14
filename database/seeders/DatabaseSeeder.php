@@ -39,10 +39,32 @@ class DatabaseSeeder extends Seeder
         )->create(['slug' => 'example']);
 
         $categories = Category::factory()->count(5)->for($restaurant)->create();
-        Item::factory(20)
+        $items = Item::factory(20)
             ->for($restaurant)
             ->recycle($categories)
             ->create();
+
+        foreach ($items as $item) {
+            $item->optionGroups()->create([
+                'restaurant_id' => $restaurant->id,
+                'name' => 'Size',
+                'required' => true,
+            ])->options()->createMany([
+                ['name' => 'Small', 'price' => 0, 'restaurant_id' => $restaurant->id],
+                ['name' => 'Medium', 'price' => 1, 'restaurant_id' => $restaurant->id],
+                ['name' => 'Large', 'price' => 2, 'restaurant_id' => $restaurant->id],
+            ]);
+
+            $item->optionGroups()->create([
+                'restaurant_id' => $restaurant->id,
+                'name' => 'Toppings',
+                'required' => false,
+            ])->options()->createMany([
+                ['name' => 'Cheese', 'price' => 0.5, 'restaurant_id' => $restaurant->id],
+                ['name' => 'Pepperoni', 'price' => 1, 'restaurant_id' => $restaurant->id],
+                ['name' => 'Mushrooms', 'price' => 0.75, 'restaurant_id' => $restaurant->id],
+            ]);
+        }
 
         Restaurant::factory()->count(10)->for(Currency::first())->create();
     }
