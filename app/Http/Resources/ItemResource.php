@@ -33,12 +33,7 @@ class ItemResource extends BaseJsonResource
                 ]),
             ],
             'relationships' => [
-                'category' => [
-                    'data' => [
-                        'type' => 'category',
-                        'id' => (string) $this->category_id,
-                    ],
-                ],
+                'categories' => (object) [],
                 'restaurant' => [
                     'data' => [
                         'type' => 'restaurant',

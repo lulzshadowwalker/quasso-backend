@@ -3,16 +3,12 @@
 namespace App\Filament\dashboard\Resources;
 
 use App\Filament\dashboard\Resources\ItemResource\Pages;
-use App\Filament\dashboard\Resources\ItemResource\RelationManagers;
-use App\Models\Category;
 use App\Models\Item;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
 
 class ItemResource extends Resource
@@ -26,7 +22,7 @@ class ItemResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('Item Details')
-                    ->description('Enter the details for this menu item, including its name, description, price, and category.')
+                    ->description('Enter the details for this menu item, including its name, description, price.')
                     ->aside()
                     ->schema([
                         Forms\Components\TextInput::make('name')
@@ -46,12 +42,6 @@ class ItemResource extends Resource
                             ->required()
                             ->numeric()
                             ->prefix(fn(Item $item) => Auth::user()->restaurant->currency->symbol),
-
-                        Forms\Components\Select::make('category_id')
-                            ->placeholder('Select a category for the item')
-                            ->label('Category')
-                            ->relationship('category', 'name')
-                            ->required(),
                     ]),
             ]);
     }
@@ -63,13 +53,6 @@ class ItemResource extends Resource
                 Tables\Columns\TextColumn::make('price')
                     ->money(currency: fn(Item $item) => $item->restaurant->currency->code)
                     ->sortable(),
-
-                Tables\Columns\TextColumn::make('category.name')
-                    ->numeric()
-                    ->sortable()
-                    ->url(fn(Item $item) => CategoryResource::getUrl('edit', ['record' => $item->category->getRouteKey()]))
-                    ->badge()
-                    ->alignCenter(),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

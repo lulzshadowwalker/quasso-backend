@@ -28,6 +28,7 @@ class CategoryResource extends BaseJsonResource
                 ]),
             ],
             'relationships' => [
+                'items' => (object) [],
                 'restaurant' => [
                     'data' => [
                         'type' => 'restaurant',

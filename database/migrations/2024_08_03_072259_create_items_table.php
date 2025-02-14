@@ -16,7 +16,6 @@ return new class extends Migration
             $table->json('name');
             $table->json('description')->nullable();
             $table->decimal('price');
-            $table->foreignId('category_id');
             $table->foreignId('restaurant_id');
             $table->timestamps();
         });

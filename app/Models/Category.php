@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\BelongsToRestaurant;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filters\QueryFilter;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model
 {
@@ -32,9 +32,9 @@ class Category extends Model
         return $this->belongsTo(Restaurant::class);
     }
 
-    public function items(): HasMany
+    public function items(): BelongsToMany
     {
-        return $this->hasMany(Item::class);
+        return $this->belongsToMany(Item::class);
     }
 
     public function scopeFilter(Builder $builder, QueryFilter $filters): Builder

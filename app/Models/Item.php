@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\BelongsToRestaurant;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -28,15 +27,13 @@ class Item extends Model implements HasMedia
             'name' => 'array',
             'description' => 'array',
             'price' => 'decimal:2',
-            'category_id' => 'integer',
             'restaurant_id' => 'integer',
         ];
     }
 
-    //  TODO: Shouldn't a item be allowed to belong to multiple categories ?
-    public function category(): BelongsTo
+    public function categories(): BelongsToMany
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class);
     }
 
     public function restaurant(): BelongsTo

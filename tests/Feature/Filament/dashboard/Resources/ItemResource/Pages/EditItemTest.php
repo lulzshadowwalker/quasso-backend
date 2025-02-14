@@ -8,7 +8,6 @@ use Tests\Traits\WithRestaurantOwner;
 use Tests\Traits\WithFilamentTranslatableFieldsPlugin;
 use App\Filament\dashboard\Resources\ItemResource;
 use App\Filament\dashboard\Resources\ItemResource\Pages\EditItem;
-use App\Models\Category;
 use App\Models\Item;
 use Tests\TestCase;
 
@@ -22,7 +21,7 @@ class EditItemTest extends TestCase
     {
         parent::setUp();
 
-        $this->item = Item::factory()->for(Category::factory()->create())->create();
+        $this->item = Item::factory()->create();
     }
 
     public function test_it_renders_the_page(): void
@@ -43,7 +42,6 @@ class EditItemTest extends TestCase
         $this->assertEquals($this->item->name, $new->name);
         $this->assertEquals($this->item->description, $new->description);
         $this->assertEquals($this->item->price, $new->price);
-        $this->assertEquals($this->item->category_id, $new->category_id);
     }
 
     public function test_form_is_pre_populated_with_item_data(): void
@@ -53,7 +51,6 @@ class EditItemTest extends TestCase
                 'name.en' => $this->item->name,
                 'description.en' => $this->item->description,
                 'price' => $this->item->price,
-                'category_id' => $this->item->category->getKey(),
             ]);
     }
 }
