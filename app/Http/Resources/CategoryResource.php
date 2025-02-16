@@ -18,6 +18,7 @@ class CategoryResource extends BaseJsonResource
             'id' => (string) $this->id,
             'attributes' => [
                 'name' => $this->name,
+                'icon' => 'https://www.svgrepo.com/show/124486/pizza.svg',
                 'description' => $this->description,
             ],
             'links' => [

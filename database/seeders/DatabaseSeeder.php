@@ -41,8 +41,11 @@ class DatabaseSeeder extends Seeder
         $categories = Category::factory()->count(5)->for($restaurant)->create();
         $items = Item::factory(20)
             ->for($restaurant)
-            ->recycle($categories)
             ->create();
+
+        $items->each(function ($item) use ($categories) {
+            $item->categories()->attach($categories->random());
+        });
 
         foreach ($items as $item) {
             $item->optionGroups()->create([
@@ -66,6 +69,6 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        Restaurant::factory()->count(10)->for(Currency::first())->create();
+        Restaurant::factory()->count(100)->for(Currency::first())->create();
     }
 }
