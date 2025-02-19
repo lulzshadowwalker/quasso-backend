@@ -20,6 +20,7 @@ class CategoryResource extends BaseJsonResource
                 'name' => $this->name,
                 'icon' => 'https://www.svgrepo.com/show/124486/pizza.svg',
                 'description' => $this->description,
+                'hasItems' => $this->items->isNotEmpty(),
             ],
             'links' => [
                 'self' => route('api.categories.show', [
