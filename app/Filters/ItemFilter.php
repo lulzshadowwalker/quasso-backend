@@ -54,4 +54,13 @@ class ItemFilter extends QueryFilter
         $likeStr = str_replace('*', '%', $value);
         return $this->builder->where('description', 'like', $likeStr);
     }
+
+    public function category($value)
+    {
+        $categories = explode(',', $value);
+
+        return $this->builder->whereHas('categories', function ($query) use ($categories) {
+            $query->whereIn('categories.id', $categories);
+        });
+    }
 }
