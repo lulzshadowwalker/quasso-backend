@@ -22,7 +22,7 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => ['en' => $this->faker->word()],
+            'name' => ['en' => $this->faker->sentence(rand(1, 2))],
             'description' => ['en' => $this->faker->paragraph()],
             'restaurant_id' => Restaurant::factory(),
         ];

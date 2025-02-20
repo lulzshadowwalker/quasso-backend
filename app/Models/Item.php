@@ -12,8 +12,11 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filters\QueryFilter;
+use App\Observers\ItemObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+#[ObservedBy(ItemObserver::class)]
 class Item extends Model implements HasMedia
 {
     use HasFactory, BelongsToRestaurant, InteractsWithMedia, HasTranslations;
@@ -29,6 +32,13 @@ class Item extends Model implements HasMedia
             'description' => 'array',
             'price' => 'decimal:2',
             'restaurant_id' => 'integer',
+            'is_gluten_free' => 'boolean',
+            'is_lactose_free' => 'boolean',
+            'is_vegan' => 'boolean',
+            'is_new' => 'boolean',
+            'is_popular' => 'boolean',
+            'is_active' => 'boolean',
+            'is_hidden' => 'boolean',
         ];
     }
 
