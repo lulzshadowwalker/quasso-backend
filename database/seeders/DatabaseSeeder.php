@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
         $categories = Category::factory()->count(5)->for($restaurant)->create();
         $items = Item::factory(200)
             ->for($restaurant)
-            ->create();
+            ->create(['hidden' => true]);
 
         $items->each(function ($item) use ($categories) {
             $item->categories()->attach($categories->random());

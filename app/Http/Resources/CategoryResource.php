@@ -39,7 +39,7 @@ class CategoryResource extends BaseJsonResource
                 ],
             ],
             'includes' => (object) [
-                'items' => $this->mergeWhen($this->includes('items'), ItemResource::collection($this->items)),
+                'items' => $this->mergeWhen($this->includes('items'), ItemResource::collection($this->items()->visible()->get())),
                 'restaurant' => $this->mergewhen($this->includes('restaurant'), RestaurantResource::make($this->restaurant)),
             ],
         ];

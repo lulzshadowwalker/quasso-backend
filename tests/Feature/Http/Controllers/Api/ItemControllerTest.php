@@ -15,7 +15,9 @@ class ItemControllerTest extends TestCase
 
     public function test_index_returns_a_collection_of_items()
     {
-        Item::factory()->count(3)->for($this->restaurant)->create();
+        Item::factory()->count(3)->for($this->restaurant)->create([
+            'hidden' => false,
+        ]);
 
         $resource = ItemResource::collection(Item::all());
 
@@ -44,8 +46,26 @@ class ItemControllerTest extends TestCase
             ->assertNotFound();
     }
 
-    public function test_it_doesnt_return_hidden_items()
+    public function test_index_doesnt_return_hidden_items()
     {
-        $this->markTestIncomplete();
+        Item::factory()->count(3)->for($this->restaurant)->create(['hidden' => true]);
+        $visible = Item::factory()->count(3)->for($this->restaurant)->create();
+
+        $resource = ItemResource::collection($visible);
+
+        $this->getJson(route('api.items.index', [$this->restaurant->slug, 'lang' => 'en']))
+            ->assertOk()
+            ->assertExactJson($resource->response()->getData(true));
+    }
+
+    public function test_show_returns_404_not_found_for_a_hidden_item()
+    {
+        $item = Item::factory()->create(['hidden' => true]);
+
+        $this->get(route('api.items.show', [
+            $this->restaurant->slug,
+            'lang' => 'en',
+            'item' => $item,
+        ]))->assertNotFound();
     }
 }

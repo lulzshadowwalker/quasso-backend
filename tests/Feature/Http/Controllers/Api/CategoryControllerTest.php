@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers\Api;
 
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use App\Models\Item;
 use App\Models\Restaurant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -42,5 +43,25 @@ class CategoryControllerTest extends TestCase
 
         $this->getJson(route('api.categories.show', [$this->restaurant->slug, 'lang' => 'en', 'category' => $category]))
             ->assertNotFound();
+    }
+
+    //  NOTE: This can posisbly be done in a unit test for the CategoryResource itself but this fine too
+    public function test_it_doesnt_include_hidden_items()
+    {
+        $category = Category::factory()->create();
+        $category->items()->attach(Item::factory()->create(['hidden' => true]));
+        $resource = CategoryResource::make($category);
+
+        $response = $this->getJson(route('api.categories.show', [
+            $this->restaurant->slug,
+            'lang' => 'en',
+            'category' => $category,
+            'include' => 'items',
+        ]))
+            ->assertOk()
+            ->assertExactJson($resource->response()->getData(true));
+
+        $data = $response->json('data.includes.items.data');
+        $this->assertEmpty($data);
     }
 }

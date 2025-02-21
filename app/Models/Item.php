@@ -62,8 +62,16 @@ class Item extends Model implements HasMedia
         return $this->belongsToMany(Menu::class);
     }
 
-    public function scopeFilter(Builder $builder, QueryFilter $filters): Builder
+    public function scopeFilter(Builder $builder, QueryFilter $filters)
     {
-        return $filters->apply($builder);
+        $filters->apply($builder);
+    }
+
+    /**
+     * Scope a query to only include visible (non hidden) items.
+     */
+    public function scopeVisible(Builder $builder)
+    {
+        $builder->where('hidden', false);
     }
 }
