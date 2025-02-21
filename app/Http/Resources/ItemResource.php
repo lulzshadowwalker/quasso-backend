@@ -23,6 +23,12 @@ class ItemResource extends BaseJsonResource
                     'amount' => $this->price,
                     'currency' => $this->restaurant->currency,
                 ]),
+                'glutenFree' => (bool) $this->gluten_free,
+                'lactoseFree' => (bool) $this->lactose_free,
+                'vegan' => (bool) $this->vegan,
+                'new' => (bool) $this->new,
+                'popular' => (bool) $this->popular,
+                'active' => (bool) $this->active,
             ],
             'links' => [
                 'self' => route('api.items.show', [

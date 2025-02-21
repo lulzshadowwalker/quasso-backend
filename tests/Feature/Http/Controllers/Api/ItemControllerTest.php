@@ -43,4 +43,9 @@ class ItemControllerTest extends TestCase
         $this->getJson(route('api.items.show', [$this->restaurant->slug, 'lang' => 'en', 'item' => $item]))
             ->assertNotFound();
     }
+
+    public function test_it_doesnt_return_hidden_items()
+    {
+        $this->markTestIncomplete();
+    }
 }
