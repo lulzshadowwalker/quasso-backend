@@ -23,6 +23,14 @@ class ItemResource extends BaseJsonResource
                     'amount' => $this->price,
                     'currency' => $this->restaurant->currency,
                 ]),
+
+                'weight' => $this->weight,
+                'calories' => $this->calories,
+                'fat' => $this->fat,
+                'carbohydrates' => $this->carbohydrates,
+                'protein' => $this->protein,
+                'sugar' => $this->sugar,
+
                 'glutenFree' => (bool) $this->gluten_free,
                 'lactoseFree' => (bool) $this->lactose_free,
                 'vegan' => (bool) $this->vegan,
