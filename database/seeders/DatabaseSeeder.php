@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
         )->for(Currency::factory()->state(['symbol' => '$', 'code' => 'USD', 'name' => 'dollar']))->create(['slug' => 'example']);
 
         $categories = Category::factory()->count(5)->for($restaurant)->create();
-        $items = Item::factory(20)
+        $items = Item::factory(200)
             ->for($restaurant)
             ->create();
 

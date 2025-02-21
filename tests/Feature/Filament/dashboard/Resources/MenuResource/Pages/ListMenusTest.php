@@ -30,7 +30,7 @@ class ListMenusTest extends TestCase
     public function test_list_menus_page_contains_menu_records()
     {
         Menu::factory()->new()->create([
-            'is_scheduled' => true,
+            'scheduled' => true,
             'start_time' => Carbon::parse('16:52:05'),
             'end_time' => Carbon::parse('17:52:05'),
         ]);

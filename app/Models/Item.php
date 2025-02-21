@@ -32,13 +32,13 @@ class Item extends Model implements HasMedia
             'description' => 'array',
             'price' => 'decimal:2',
             'restaurant_id' => 'integer',
-            'is_gluten_free' => 'boolean',
-            'is_lactose_free' => 'boolean',
-            'is_vegan' => 'boolean',
-            'is_new' => 'boolean',
-            'is_popular' => 'boolean',
-            'is_active' => 'boolean',
-            'is_hidden' => 'boolean',
+            'gluten_free' => 'boolean',
+            'lactose_free' => 'boolean',
+            'vegan' => 'boolean',
+            'new' => 'boolean',
+            'popular' => 'boolean',
+            'active' => 'boolean',
+            'hidden' => 'boolean',
         ];
     }
 

@@ -53,11 +53,11 @@ class CreateMenuTest extends TestCase
                 ['data.name.en' => ['required']],
             ],
             [
-                ['name.en' => 'Menu 1', 'description.en' => 'Menu 1 description', 'is_scheduled' => true, 'start_time' => '', 'end_time' => ''],
+                ['name.en' => 'Menu 1', 'description.en' => 'Menu 1 description', 'scheduled' => true, 'start_time' => '', 'end_time' => ''],
                 ['data.start_time' => ['The start Time field is required when scheduled is true.'], 'data.end_time' => ['The end Time field is required when scheduled is true.']],
             ],
             [
-                ['name.en' => 'Menu 1', 'description.en' => 'Menu 1 description', 'is_scheduled' => true, 'start_time' => '10:00', 'end_time' => '09:00'],
+                ['name.en' => 'Menu 1', 'description.en' => 'Menu 1 description', 'scheduled' => true, 'start_time' => '10:00', 'end_time' => '09:00'],
                 ['data.end_time' => ['End time must be after the start time.']],
             ]
         ];

@@ -24,14 +24,14 @@ return new class extends Migration
             $table->float('protein')->nullable();
             $table->float('sugar')->nullable();
 
-            $table->boolean('is_gluten_free')->nullable();
-            $table->boolean('is_lactose_free')->nullable();
-            $table->boolean('is_vegan')->nullable();
-            $table->boolean('is_new')->nullable();
-            $table->boolean('is_popular')->nullable();
+            $table->boolean('gluten_free')->nullable();
+            $table->boolean('lactose_free')->nullable();
+            $table->boolean('vegan')->nullable();
+            $table->boolean('new')->nullable();
+            $table->boolean('popular')->nullable();
 
-            $table->boolean('is_active')->default(true);
-            $table->boolean('is_hidden')->default(false);
+            $table->boolean('active')->default(true);
+            $table->boolean('hidden')->default(false);
 
             $table->foreignId('restaurant_id');
             $table->timestamps();

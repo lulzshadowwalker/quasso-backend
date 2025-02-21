@@ -14,17 +14,17 @@ class ItemTest extends TestCase
     public function test_boolean_attributes_are_set_to_null_when_they_are_set_to_false(): void
     {
         $item = Item::factory()->create([
-            'is_lactose_free' => false,
-            'is_gluten_free' => false,
-            'is_vegan' => false,
-            'is_new' => false,
-            'is_popular' => false,
+            'lactose_free' => false,
+            'gluten_free' => false,
+            'vegan' => false,
+            'new' => false,
+            'popular' => false,
         ]);
 
-        $this->assertNull($item->is_lactose_free);
-        $this->assertNull($item->is_gluten_free);
-        $this->assertNull($item->is_vegan);
-        $this->assertNull($item->is_new);
-        $this->assertNull($item->is_popular);
+        $this->assertNull($item->lactose_free);
+        $this->assertNull($item->gluten_free);
+        $this->assertNull($item->vegan);
+        $this->assertNull($item->new);
+        $this->assertNull($item->popular);
     }
 }

@@ -42,7 +42,7 @@ class MenuResource extends Resource
                             ->placeholder('Enter the description of the menu')
                             ->translatable(),
 
-                        Forms\Components\Toggle::make('is_scheduled')
+                        Forms\Components\Toggle::make('scheduled')
                             ->label('Scheduled')
                             ->live()
                             ->hint('Enable if this menu is available only during specific times')
@@ -51,18 +51,18 @@ class MenuResource extends Resource
                 Forms\Components\Section::make('Schedule Details')
                     ->description('Set the start and end time for the menu availability.')
                     ->icon('heroicon-o-clock')
-                    ->visible(fn(Forms\Get $get) => $get('is_scheduled'))
+                    ->visible(fn(Forms\Get $get) => $get('scheduled'))
                     ->aside()
                     ->schema([
                         Forms\Components\TimePicker::make('start_time')
                             ->label('Start Time')
                             ->hint('enter the start time of the menu')
-                            ->requiredIf('is_scheduled', true),
+                            ->requiredIf('scheduled', true),
 
                         Forms\Components\TimePicker::make('end_time')
                             ->label('End Time')
                             ->hint('enter the end time of the menu')
-                            ->requiredIf('is_scheduled', true)
+                            ->requiredIf('scheduled', true)
                             ->rule(fn(Forms\Get $get) => new EndTimeAfterStartTime($get('start_time')))
                     ])
             ]);
@@ -75,17 +75,17 @@ class MenuResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->description(fn(Menu $menu) => $menu->description)
                     ->sortable(),
-                Tables\Columns\TextColumn::make('is_scheduled')
+                Tables\Columns\TextColumn::make('scheduled')
                     ->label('Scheduled')
                     ->badge()
                     ->getStateUsing(function (Menu $menu) {
-                        if (!$menu->is_scheduled) {
+                        if (!$menu->scheduled) {
                             return 'Always';
                         }
 
                         return $menu->start_time->format('g:i A') . ' - ' . $menu->end_time->format('g:i A');
                     })
-                    ->color(fn(Menu $menu) => $menu->is_scheduled ? 'info' : 'success')
+                    ->color(fn(Menu $menu) => $menu->scheduled ? 'info' : 'success')
                     ->alignRight(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

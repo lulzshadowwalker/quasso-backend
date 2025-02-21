@@ -23,7 +23,7 @@ class Menu extends Model
             'id' => 'integer',
             'name' => 'array',
             'description' => 'array',
-            'is_scheduled' => 'boolean',
+            'scheduled' => 'boolean',
             'restaurant_id' => 'integer',
             'start_time' =>  TimeCast::class,
             'end_time' => TimeCast::class,

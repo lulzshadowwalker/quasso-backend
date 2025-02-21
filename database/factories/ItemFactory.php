@@ -32,13 +32,13 @@ class ItemFactory extends Factory
             'sugar' => rand(0, 1) ? $this->faker->randomFloat(2, 1, 20) : null,
             'carbohydrates' => rand(0, 1) ? $this->faker->randomFloat(2, 1, 50) : null,
 
-            'is_gluten_free' => rand(0, 1) ? true : null,
-            'is_lactose_free' => rand(0, 1) ? true : null,
-            'is_vegan' => rand(0, 1) ? true : null,
-            'is_new' => rand(0, 1) ? true : null,
-            'is_popular' => rand(0, 1) ? true : null,
-            'is_active' => true,
-            'is_hidden' => false,
+            'gluten_free' => rand(0, 1) ? true : null,
+            'lactose_free' => rand(0, 1) ? true : null,
+            'vegan' => rand(0, 1) ? true : null,
+            'new' => rand(0, 1) ? true : null,
+            'popular' => rand(0, 1) ? true : null,
+            'active' => true,
+            'hidden' => false,
 
             'restaurant_id' => Restaurant::factory(),
         ];

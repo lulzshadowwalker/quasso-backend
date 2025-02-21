@@ -28,7 +28,7 @@ class MenuFactory extends Factory
         return [
             'name' => ['en' => $this->faker->word()],
             'description' => ['en' => $this->faker->sentence()],
-            'is_scheduled' => $isScheduled,
+            'scheduled' => $isScheduled,
             'start_time' => $startTime,
             'end_time' => $endTime,
             'restaurant_id' => Restaurant::factory(),

@@ -32,7 +32,7 @@ class EditMenuTest extends TestCase
     public function test_it_updates_a_menu(): void
     {
         $new = Menu::factory()->make([
-            'is_scheduled' => true,
+            'scheduled' => true,
             'start_time' => '10:00:00',
             'end_time' => '20:00:00',
         ]);
@@ -45,7 +45,7 @@ class EditMenuTest extends TestCase
         $this->menu->refresh();
         $this->assertEquals($this->menu->name, $new->name);
         $this->assertEquals($this->menu->description, $new->description);
-        $this->assertEquals($this->menu->is_scheduled, $new->is_scheduled);
+        $this->assertEquals($this->menu->scheduled, $new->scheduled);
         $this->assertEquals($this->menu->start_time, $new->start_time);
         $this->assertEquals($this->menu->end_time, $new->end_time);
     }
@@ -56,7 +56,7 @@ class EditMenuTest extends TestCase
             ->assertFormSet([
                 'name.en' => $this->menu->name,
                 'description.en' => $this->menu->description,
-                'is_scheduled' => $this->menu->is_scheduled,
+                'scheduled' => $this->menu->scheduled,
                 'start_time' => $this->menu->start_time->format('H:i:s'),
                 'end_time' => $this->menu->end_time->format('H:i:s'),
             ]);

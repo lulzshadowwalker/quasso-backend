@@ -9,24 +9,24 @@ class ItemObserver
     public function creating(Item $item)
     {
         //  NOTE: Just wanna be a little more clear :)
-        if ($item->is_lactose_free === false) {
-            $item->is_lactose_free = null;
+        if ($item->lactose_free === false) {
+            $item->lactose_free = null;
         }
 
-        if ($item->is_gluten_free === false) {
-            $item->is_gluten_free = null;
+        if ($item->gluten_free === false) {
+            $item->gluten_free = null;
         }
 
-        if ($item->is_vegan === false) {
-            $item->is_vegan = null;
+        if ($item->vegan === false) {
+            $item->vegan = null;
         }
 
-        if ($item->is_new === false) {
-            $item->is_new = null;
+        if ($item->new === false) {
+            $item->new = null;
         }
 
-        if ($item->is_popular === false) {
-            $item->is_popular = null;
+        if ($item->popular === false) {
+            $item->popular = null;
         }
     }
 }
