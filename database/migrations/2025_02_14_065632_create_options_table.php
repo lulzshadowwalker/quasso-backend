@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('restaurant_id')->constrained();
             $table->foreignId('option_group_id')->constrained();
-            $table->string('name');
+            $table->json('name');
             $table->decimal('price', 10, 2);
             $table->timestamps();
         });

@@ -3,7 +3,6 @@
 namespace App\Filament\dashboard\Resources;
 
 use App\Filament\dashboard\Resources\ItemResource\Pages;
-use App\Models\Category;
 use App\Models\Item;
 use Filament\Forms;
 use Filament\Forms\Form;

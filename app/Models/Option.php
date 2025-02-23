@@ -5,10 +5,13 @@ namespace App\Models;
 use App\Traits\BelongsToRestaurant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Option extends Model
 {
-    use HasFactory, BelongsToRestaurant;
+    use HasFactory, BelongsToRestaurant, HasTranslations;
+
+    public array $translatable = ['name'];
 
     protected function casts(): array
     {

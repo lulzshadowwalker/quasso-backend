@@ -11,7 +11,7 @@ class ItemFilter extends QueryFilter
         'createdAt' => 'created_at',
     ];
 
-    public function include($relationships)
+    public function include(string $relationships)
     {
         $allowedRelationships = ['categories', 'restaurant', 'optionGroups'];
 
@@ -21,7 +21,7 @@ class ItemFilter extends QueryFilter
         return $this->builder->with($relationships);
     }
 
-    public function createdAt($value)
+    public function createdAt(string $value)
     {
         $dates = explode(',', $value);
 
@@ -32,7 +32,7 @@ class ItemFilter extends QueryFilter
         return $this->builder->whereDate('created_at', $value);
     }
 
-    public function updatedAt($value)
+    public function updatedAt(string $value)
     {
         $dates = explode(',', $value);
 
@@ -43,24 +43,38 @@ class ItemFilter extends QueryFilter
         return $this->builder->whereDate('updated_at', $value);
     }
 
-    public function name($value)
+    public function name(string $value)
     {
         $likeStr = str_replace('*', '%', $value);
         return $this->builder->where('name', 'like', $likeStr);
     }
 
-    public function description($value)
+    public function description(string $value)
     {
         $likeStr = str_replace('*', '%', $value);
         return $this->builder->where('description', 'like', $likeStr);
     }
 
-    public function category($value)
+    public function category(string $value)
     {
         $categories = explode(',', $value);
 
         return $this->builder->whereHas('categories', function ($query) use ($categories) {
             $query->whereIn('categories.id', $categories);
         });
+    }
+
+    public function search(string $value)
+    {
+        $likeStr = str_replace('*', '%', $value);
+        if (strpos($likeStr, '%') === false) {
+            $likeStr = '%' . $likeStr . '%';
+        }
+
+        return $this->builder->whereRaw('LOWER(name) LIKE LOWER(?)', [$likeStr])
+            ->orWhereRaw('LOWER(description) LIKE LOWER(?)', [$likeStr])
+            ->orWhereHas('categories', function ($query) use ($likeStr) {
+                $query->whereRaw('LOWER(name) LIKE LOWER(?)', [$likeStr]);
+            });
     }
 }
