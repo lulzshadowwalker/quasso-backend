@@ -39,9 +39,9 @@ class DatabaseSeeder extends Seeder
         )->for(Currency::factory()->state(['symbol' => '$', 'code' => 'USD', 'name' => 'dollar']))->create(['slug' => 'example']);
 
         $categories = Category::factory()->count(5)->for($restaurant)->create();
-        $items = Item::factory(200)
+        $items = Item::factory(20)
             ->for($restaurant)
-            ->create(['hidden' => true]);
+            ->create();
 
         $items->each(function ($item) use ($categories) {
             $item->categories()->attach($categories->random());
@@ -69,6 +69,6 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        Restaurant::factory()->count(100)->for(Currency::first())->create();
+        Restaurant::factory()->count(10)->for(Currency::first())->create();
     }
 }
