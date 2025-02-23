@@ -11,7 +11,7 @@ class ItemFilter extends QueryFilter
         'createdAt' => 'created_at',
     ];
 
-    public function include(string $relationships)
+    public function include($relationships)
     {
         $allowedRelationships = ['categories', 'restaurant', 'optionGroups'];
 
@@ -21,7 +21,7 @@ class ItemFilter extends QueryFilter
         return $this->builder->with($relationships);
     }
 
-    public function createdAt(string $value)
+    public function createdAt($value)
     {
         $dates = explode(',', $value);
 
@@ -32,7 +32,7 @@ class ItemFilter extends QueryFilter
         return $this->builder->whereDate('created_at', $value);
     }
 
-    public function updatedAt(string $value)
+    public function updatedAt($value)
     {
         $dates = explode(',', $value);
 
@@ -43,19 +43,19 @@ class ItemFilter extends QueryFilter
         return $this->builder->whereDate('updated_at', $value);
     }
 
-    public function name(string $value)
+    public function name($value)
     {
         $likeStr = str_replace('*', '%', $value);
         return $this->builder->where('name', 'like', $likeStr);
     }
 
-    public function description(string $value)
+    public function description($value)
     {
         $likeStr = str_replace('*', '%', $value);
         return $this->builder->where('description', 'like', $likeStr);
     }
 
-    public function category(string $value)
+    public function category($value)
     {
         $categories = explode(',', $value);
 
@@ -64,7 +64,7 @@ class ItemFilter extends QueryFilter
         });
     }
 
-    public function search(string $value)
+    public function search($value)
     {
         $likeStr = str_replace('*', '%', $value);
         if (strpos($likeStr, '%') === false) {
