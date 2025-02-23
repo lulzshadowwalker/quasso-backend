@@ -8,6 +8,7 @@ use Tests\Traits\WithRestaurantOwner;
 use Tests\Traits\WithFilamentTranslatableFieldsPlugin;
 use App\Filament\dashboard\Resources\ItemResource;
 use App\Filament\dashboard\Resources\ItemResource\Pages\EditItem;
+use App\Models\Category;
 use App\Models\Item;
 use Tests\TestCase;
 
@@ -31,10 +32,16 @@ class EditItemTest extends TestCase
 
     public function test_it_updates_an_item(): void
     {
+        Category::factory()->count(3)->create();
         $new = Item::factory()->make();
 
-        Livewire::test(EditItem::class, ['record' => $this->item->getRouteKey()])
-            ->fillForm($new->toArray())
+        Livewire::test(EditItem::class, [
+            'record' => $this->item->getRouteKey(),
+        ])
+            ->fillForm([
+                ...$new->toArray(),
+                'categories' => [1, 2],
+            ])
             ->call('save')
             ->assertHasNoFormErrors();
 
