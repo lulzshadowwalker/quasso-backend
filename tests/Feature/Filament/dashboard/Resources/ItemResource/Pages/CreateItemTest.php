@@ -5,7 +5,9 @@ namespace Tests\Feature\Filament\dashboard\Resources\ItemResource\Pages;
 use App\Filament\dashboard\Resources\ItemResource;
 use App\Filament\dashboard\Resources\ItemResource\Pages\CreateItem;
 use App\Models\Category;
+use App\Models\Item;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Testing\File;
 use Livewire\Livewire;
 use Tests\TestCase;
 use Tests\Traits\WithRestaurantOwner;
@@ -30,6 +32,12 @@ class CreateItemTest extends TestCase
 
     public function test_it_creates_an_item(): void
     {
+        $images = [
+            File::image('image1.jpg', 100, 100),
+            File::image('image2.jpg', 100, 100),
+            File::image('image3.jpg', 100, 100),
+            File::image('image4.jpg', 100, 100),
+        ];
 
         Livewire::test(CreateItem::class)
             ->fillForm([
@@ -37,6 +45,7 @@ class CreateItemTest extends TestCase
                 'description.en' => 'Menu 1 description',
                 'price' => 333,
                 'categories' => [1, 2],
+                'images' => $images,
             ])
             ->call('create')
             ->assertHasNoFormErrors();
@@ -46,16 +55,33 @@ class CreateItemTest extends TestCase
             'description' => json_encode(['en' => 'Menu 1 description']),
             'price' => 333,
         ]);
+
+        $item = Item::first();
+        $this->assertNotEmpty($item->images);
+        $this->assertEquals(count($images), $item->images->count());
+
+        foreach ($images as $key => $image) {
+            $i = $item->imageFiles->get($key);
+            $this->assertStringContainsString($i->name, $image->name);
+        }
     }
 
     public function test_it_creates_an_item_with_dietary_information_and_nutrition_facts(): void
     {
+        $images = [
+            File::image('image1.jpg', 100, 100),
+            File::image('image2.jpg', 100, 100),
+            File::image('image3.jpg', 100, 100),
+            File::image('image4.jpg', 100, 100),
+        ];
+
         Livewire::test(CreateItem::class)
             ->fillForm([
                 'name.en' => 'Menu 1',
                 'description.en' => 'Menu 1 description',
                 'price' => 333,
                 'categories' => [1, 2],
+                'images' => $images,
                 'weight' => 100,
                 'calories' => 200,
                 'fat' => 10,
@@ -93,6 +119,15 @@ class CreateItemTest extends TestCase
             'active' => 0,
             'hidden' => 1,
         ]);
+
+        $item = Item::first();
+        $this->assertNotEmpty($item->images);
+        $this->assertEquals(count($images), $item->images->count());
+
+        foreach ($images as $key => $image) {
+            $i = $item->imageFiles->get($key);
+            $this->assertStringContainsString($i->name, $image->name);
+        }
     }
 
     #[DataProvider('validationProvider')]

@@ -60,6 +60,12 @@ class ItemResource extends Resource
                                     ->placeholder('Enter a brief description (optional)')
                                     ->rows(2),
                             ]),
+
+                        Forms\Components\SpatieMediaLibraryFileUpload::make('images')
+                            ->label('Images')
+                            ->collection(Item::MEDIA_COLLECTION_IMAGES)
+                            ->required()
+                            ->multiple(),
                     ]),
 
                 Forms\Components\Section::make('Nutritional Information')

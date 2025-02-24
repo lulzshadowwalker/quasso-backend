@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filters\QueryFilter;
 use App\Observers\ItemObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[ObservedBy(ItemObserver::class)]
@@ -73,5 +74,26 @@ class Item extends Model implements HasMedia
     public function scopeVisible(Builder $builder)
     {
         $builder->where('hidden', false);
+    }
+
+    const MEDIA_COLLECTION_IMAGES = 'images';
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection(self::MEDIA_COLLECTION_IMAGES);
+    }
+
+    public function images(): Attribute
+    {
+        return Attribute::get(
+            fn() => $this
+                ->getMedia(self::MEDIA_COLLECTION_IMAGES)
+                ->map(fn($media) => $media->getUrl()),
+        );
+    }
+
+    public function imageFiles(): Attribute
+    {
+        return Attribute::get(fn() => $this->getMedia(self::MEDIA_COLLECTION_IMAGES));
     }
 }
