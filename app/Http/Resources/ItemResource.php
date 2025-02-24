@@ -23,6 +23,7 @@ class ItemResource extends BaseJsonResource
                     'amount' => $this->price,
                     'currency' => $this->restaurant->currency,
                 ]),
+                'images' => SpatieImageResource::collection($this->imageFiles),
 
                 'weight' => $this->weight,
                 'calories' => $this->calories,
