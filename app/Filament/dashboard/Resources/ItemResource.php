@@ -2,6 +2,7 @@
 
 namespace App\Filament\dashboard\Resources;
 
+use App\Enums\SelectionType;
 use App\Filament\dashboard\Resources\ItemResource\Pages;
 use App\Models\Item;
 use Filament\Forms;
@@ -55,6 +56,7 @@ class ItemResource extends Resource
                                     ->label('Category Name')
                                     ->placeholder('Enter a new category name')
                                     ->required(),
+
                                 Forms\Components\Textarea::make('description')
                                     ->label('Description')
                                     ->placeholder('Enter a brief description (optional)')
@@ -66,6 +68,46 @@ class ItemResource extends Resource
                             ->collection(Item::MEDIA_COLLECTION_IMAGES)
                             ->required()
                             ->multiple(),
+                    ]),
+
+                Forms\Components\Section::make('Options')
+                    ->description('Add options and addons to customize this item.')
+                    ->aside()
+                    ->schema([
+                        Forms\Components\Repeater::make('option_groups')
+                            ->required(false)
+                            ->label('Option Groups')
+                            ->addActionLabel('Add Option Group')
+                            ->schema([
+                                Forms\Components\TextInput::make('name')
+                                    ->label('Name')
+                                    ->placeholder('Enter the name of the option group')
+                                    ->required()
+                                    ->translatable(),
+
+                                Forms\Components\Select::make('selection_type')
+                                    ->label('Selection Type')
+                                    ->options(SelectionType::class)
+                                    ->searchable()
+                                    ->required(),
+
+                                Forms\Components\Repeater::make('options')
+                                    ->label('Options')
+                                    ->addActionLabel('Add Option')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('name')
+                                            ->label('Name')
+                                            ->placeholder('Enter the name of the option')
+                                            ->required()
+                                            ->translatable(),
+
+                                        Forms\Components\TextInput::make('price')
+                                            ->label('Price')
+                                            ->placeholder('0.00')
+                                            ->numeric()
+                                            ->prefix(fn() => Auth::user()->restaurant->currency->symbol),
+                                    ]),
+                            ]),
                     ]),
 
                 Forms\Components\Section::make('Nutritional Information')

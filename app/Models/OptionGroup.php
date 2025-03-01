@@ -6,10 +6,13 @@ use App\Enums\SelectionType;
 use App\Traits\BelongsToRestaurant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class OptionGroup extends Model
 {
-    use HasFactory, BelongsToRestaurant;
+    use HasFactory, BelongsToRestaurant, HasTranslations;
+
+    public array $translatable = ['name'];
 
     protected function casts(): array
     {

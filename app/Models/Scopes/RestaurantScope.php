@@ -14,6 +14,8 @@ class RestaurantScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
+        if (app()->runningInConsole()) return;
+
         $restaurant = RestaurantFactory::make();
         if (! $restaurant) {
             throw new \Exception('Restaurant not found');
