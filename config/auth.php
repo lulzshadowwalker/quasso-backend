@@ -40,6 +40,13 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'guest' => [
+            'driver' => 'token',
+            'provider' => 'guests',
+            // Set 'hash' to true if you're using hashed tokens (Sanctum does hash tokens by default)
+            'hash' => true,
+        ],
     ],
 
     /*
@@ -69,6 +76,11 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+        'guests' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Guest::class,
+        ],
     ],
 
     /*
