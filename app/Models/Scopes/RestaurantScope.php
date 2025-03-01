@@ -14,7 +14,8 @@ class RestaurantScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        if (app()->runningInConsole()) return;
+        //  NOTE: Disables scoping when running e.g. in tinker but not in tests
+        if (app()->runningInConsole() && ! app()->runningUnitTests()) return;
 
         $restaurant = RestaurantFactory::make();
         if (! $restaurant) {

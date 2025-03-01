@@ -97,69 +97,69 @@ class CreateItemTest extends TestCase
         $this->assertEquals('Option 1', $optionGroup->options->first()->getTranslation('name', 'en'));
     }
 
-    /*public function test_it_creates_an_item_with_dietary_information_and_nutrition_facts(): void*/
-    /*{*/
-    /*    $images = [*/
-    /*        File::image('image1.jpg', 100, 100),*/
-    /*        File::image('image2.jpg', 100, 100),*/
-    /*        File::image('image3.jpg', 100, 100),*/
-    /*        File::image('image4.jpg', 100, 100),*/
-    /*    ];*/
-    /**/
-    /*    Livewire::test(CreateItem::class)*/
-    /*        ->fillForm([*/
-    /*            'name.en' => 'Menu 1',*/
-    /*            'description.en' => 'Menu 1 description',*/
-    /*            'price' => 333,*/
-    /*            'categories' => [1, 2],*/
-    /*            'images' => $images,*/
-    /*            'weight' => 100,*/
-    /*            'calories' => 200,*/
-    /*            'fat' => 10,*/
-    /*            'carbohydrates' => 20,*/
-    /*            'protein' => 30,*/
-    /*            'sugar' => 40,*/
-    /*            'gluten_free' => true,*/
-    /*            'vegan' => true,*/
-    /*            'lactose_free' => false,*/
-    /*            'vegan' => false,*/
-    /*            'new' => true,*/
-    /*            'popular' => true,*/
-    /*            'active' => false,*/
-    /*            'hidden' => true,*/
-    /*        ])*/
-    /*        ->call('create')*/
-    /*        ->assertHasNoFormErrors();*/
-    /**/
-    /*    $this->assertDatabaseHas('items', [*/
-    /*        'name' => json_encode(['en' => 'Menu 1']),*/
-    /*        'description' => json_encode(['en' => 'Menu 1 description']),*/
-    /*        'price' => 333,*/
-    /*        'weight' => 100,*/
-    /*        'calories' => 200,*/
-    /*        'fat' => 10,*/
-    /*        'carbohydrates' => 20,*/
-    /*        'protein' => 30,*/
-    /*        'sugar' => 40,*/
-    /*        'gluten_free' => 1,*/
-    /*        'vegan' => null,*/
-    /*        'lactose_free' => null,*/
-    /*        'vegan' => null,*/
-    /*        'new' => 1,*/
-    /*        'popular' => 1,*/
-    /*        'active' => 0,*/
-    /*        'hidden' => 1,*/
-    /*    ]);*/
-    /**/
-    /*    $item = Item::first();*/
-    /*    $this->assertNotEmpty($item->images);*/
-    /*    $this->assertEquals(count($images), $item->images->count());*/
-    /**/
-    /*    foreach ($images as $key => $image) {*/
-    /*        $i = $item->imageFiles->get($key);*/
-    /*        $this->assertStringContainsString($i->name, $image->name);*/
-    /*    }*/
-    /*}*/
+    public function test_it_creates_an_item_with_dietary_information_and_nutrition_facts(): void
+    {
+        $images = [
+            File::image('image1.jpg', 100, 100),
+            File::image('image2.jpg', 100, 100),
+            File::image('image3.jpg', 100, 100),
+            File::image('image4.jpg', 100, 100),
+        ];
+
+        Livewire::test(CreateItem::class)
+            ->fillForm([
+                'name.en' => 'Menu 1',
+                'description.en' => 'Menu 1 description',
+                'price' => 333,
+                'categories' => [1, 2],
+                'images' => $images,
+                'weight' => 100,
+                'calories' => 200,
+                'fat' => 10,
+                'carbohydrates' => 20,
+                'protein' => 30,
+                'sugar' => 40,
+                'gluten_free' => true,
+                'vegan' => true,
+                'lactose_free' => false,
+                'vegan' => false,
+                'new' => true,
+                'popular' => true,
+                'active' => false,
+                'hidden' => true,
+            ])
+            ->call('create')
+            ->assertHasNoFormErrors();
+
+        $this->assertDatabaseHas('items', [
+            'name' => json_encode(['en' => 'Menu 1']),
+            'description' => json_encode(['en' => 'Menu 1 description']),
+            'price' => 333,
+            'weight' => 100,
+            'calories' => 200,
+            'fat' => 10,
+            'carbohydrates' => 20,
+            'protein' => 30,
+            'sugar' => 40,
+            'gluten_free' => 1,
+            'vegan' => null,
+            'lactose_free' => null,
+            'vegan' => null,
+            'new' => 1,
+            'popular' => 1,
+            'active' => 0,
+            'hidden' => 1,
+        ]);
+
+        $item = Item::first();
+        $this->assertNotEmpty($item->images);
+        $this->assertEquals(count($images), $item->images->count());
+
+        foreach ($images as $key => $image) {
+            $i = $item->imageFiles->get($key);
+            $this->assertStringContainsString($i->name, $image->name);
+        }
+    }
 
     #[DataProvider('validationProvider')]
     public function test_validation_errors($input, $output): void

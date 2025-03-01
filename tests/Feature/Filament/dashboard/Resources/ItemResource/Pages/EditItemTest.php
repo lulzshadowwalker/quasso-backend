@@ -10,6 +10,9 @@ use App\Filament\dashboard\Resources\ItemResource;
 use App\Filament\dashboard\Resources\ItemResource\Pages\EditItem;
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\OptionGroup;
+use App\Models\Option;
+use Filament\Forms\Components\Repeater;
 use Illuminate\Http\Testing\File;
 use Tests\TestCase;
 
@@ -24,6 +27,9 @@ class EditItemTest extends TestCase
         parent::setUp();
 
         $this->item = Item::factory()->create();
+        OptionGroup::factory()->for($this->item)
+            ->has(Option::factory()->count(3))
+            ->create();
     }
 
     public function test_it_renders_the_page(): void
@@ -43,6 +49,8 @@ class EditItemTest extends TestCase
         Category::factory()->count(3)->create();
         $new = Item::factory()->make();
 
+        $undoRepeaterFake = Repeater::fake();
+
         Livewire::test(EditItem::class, [
             'record' => $this->item->getRouteKey(),
         ])
@@ -50,9 +58,41 @@ class EditItemTest extends TestCase
                 ...$new->toArray(),
                 'categories' => [1, 2],
                 'images' => $images,
+                'option_groups' => [
+                    [
+                        'name' => ['en' => 'English only name'],
+                        'selection_type' => 'single',
+                        'options' => [
+                            [
+                                'name' => ['en' => 'Option 1'],
+                                'price' => 100,
+                            ],
+                            [
+                                'name' => ['en' => 'Option 2'],
+                                'price' => 200,
+                            ],
+                        ],
+                    ],
+                    [
+                        'name' => ['en' => 'English only name 2'],
+                        'selection_type' => 'single',
+                        'options' => [
+                            [
+                                'name' => ['en' => 'Option 3'],
+                                'price' => 300,
+                            ],
+                            [
+                                'name' => ['en' => 'Option 4'],
+                                'price' => 400,
+                            ],
+                        ],
+                    ],
+                ],
             ])
             ->call('save')
             ->assertHasNoFormErrors();
+
+        $undoRepeaterFake();
 
         $this->item->refresh();
         $this->assertEquals($this->item->name, $new->name);
@@ -65,15 +105,43 @@ class EditItemTest extends TestCase
             $i = $this->item->imageFiles->get($key);
             $this->assertStringContainsString($i->name, $image->name);
         }
+
+        $optionGroups = $this->item->optionGroups;
+        $this->assertNotEmpty($optionGroups);
+        $this->assertEquals(2, $optionGroups->count());
+        $this->assertEquals('English only name', $optionGroups->first()->getTranslation('name', 'en'));
+        $this->assertEquals('English only name 2', $optionGroups->last()->getTranslation('name', 'en'));
+        $this->assertEquals(2, $optionGroups->first()->options->count());
+        $this->assertEquals(2, $optionGroups->last()->options->count());
+        $this->assertEquals('Option 1', $optionGroups->first()->options->first()->getTranslation('name', 'en'));
+        $this->assertEquals('Option 2', $optionGroups->first()->options->last()->getTranslation('name', 'en'));
     }
 
     public function test_form_is_pre_populated_with_item_data(): void
     {
+        $undoRepeaterFake = Repeater::fake();
+
         Livewire::test(EditItem::class, ['record' => $this->item->getRouteKey()])
             ->assertFormSet([
                 'name.en' => $this->item->name,
                 'description.en' => $this->item->description,
                 'price' => $this->item->price,
+                'categories' => $this->item->categories->pluck('id')->toArray(),
+                'images' => $this->item->images->pluck('id')->toArray(),
+                'option_groups' => $this->item->optionGroups->map(function ($optionGroup) {
+                    return [
+                        'name.en' => $optionGroup->getTranslation('name', 'en'),
+                        'selection_type' => $optionGroup->selection_type->value,
+                        'options' => $optionGroup->options->map(function ($option) {
+                            return [
+                                'name.en' => $option->getTranslation('name', 'en'),
+                                'price' => $option->price,
+                            ];
+                        })->toArray(),
+                    ];
+                })->toArray(),
             ]);
+
+        $undoRepeaterFake();
     }
 }

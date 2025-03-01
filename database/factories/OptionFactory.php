@@ -21,7 +21,7 @@ class OptionFactory extends Factory
         return [
             'option_group_id' => OptionGroup::factory(),
             'restaurant_id' => Restaurant::factory(),
-            'name' => $this->faker->word,
+            'name' => ['en' => $this->faker->sentence(rand(1, 3))],
             'price' => $this->faker->randomFloat(2, 0, 100),
         ];
     }

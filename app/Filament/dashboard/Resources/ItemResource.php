@@ -42,6 +42,7 @@ class ItemResource extends Resource
                             ->placeholder('Enter the price of the item')
                             ->required()
                             ->numeric()
+                            ->maxValue(9999)
                             ->prefix(fn() => Auth::user()->restaurant->currency->symbol),
 
                         Forms\Components\Select::make('categories')
@@ -78,6 +79,7 @@ class ItemResource extends Resource
                             ->required(false)
                             ->label('Option Groups')
                             ->addActionLabel('Add Option Group')
+                            ->defaultItems(0)
                             ->schema([
                                 Forms\Components\TextInput::make('name')
                                     ->label('Name')
@@ -105,6 +107,7 @@ class ItemResource extends Resource
                                             ->label('Price')
                                             ->placeholder('0.00')
                                             ->numeric()
+                                            ->maxValue(9999)
                                             ->prefix(fn() => Auth::user()->restaurant->currency->symbol),
                                     ]),
                             ]),

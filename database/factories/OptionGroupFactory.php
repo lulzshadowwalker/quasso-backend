@@ -22,7 +22,7 @@ class OptionGroupFactory extends Factory
         return [
             'restaurant_id' => Restaurant::factory(),
             'item_id' => Item::factory(),
-            'name' => $this->faker->word,
+            'name' => ['en' => $this->faker->sentence(rand(1, 3))],
             'required' => $this->faker->boolean,
             'selection_type' => $this->faker->randomElement(array_map(
                 fn($type): string => $type->value,
