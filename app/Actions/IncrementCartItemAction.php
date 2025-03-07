@@ -4,7 +4,7 @@ namespace App\Actions;
 
 use App\Factories\CartFactory;
 use App\Models\CartItem;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class IncrementCartItemAction
 {
@@ -13,9 +13,8 @@ class IncrementCartItemAction
         $cart = CartFactory::make();
 
         //  TODO: *might* want to use a policy dk
-        $guest = Auth::guard('guest')->user();
         if ($cart->id !== $cartItem->cart->id) {
-            throw new \Exception('Forbidden');
+            throw new AuthorizationException('Forbidden');
         }
 
         $cartItem->increment('quantity');

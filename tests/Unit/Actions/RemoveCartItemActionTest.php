@@ -6,6 +6,7 @@ use App\Actions\RemoveCartItemAction;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Guest;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Tests\Traits\WithRestaurant;
@@ -44,7 +45,7 @@ class RemoveCartItemActionTest extends TestCase
             ->for(Cart::factory()->for(Guest::factory()->create()), 'cart')
             ->create();
 
-        $this->expectException(\Exception::class);
+        $this->expectException(AuthorizationException::class);
         $this->expectExceptionMessage('Forbidden');
 
         RemoveCartItemAction::execute($cartItem);

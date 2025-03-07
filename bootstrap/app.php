@@ -7,6 +7,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use App\Http\Response\JsonResponseBuilder;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Exceptions\PostTooLargeException;
@@ -121,6 +122,16 @@ return Application::configure(basePath: dirname(__DIR__))
                 title: 'Request Entity Too Large',
                 detail: 'The request entity is too large.',
                 code: Response::HTTP_REQUEST_ENTITY_TOO_LARGE
+            );
+            return $builder->build();
+        });
+
+        $exceptions->render(function (AuthorizationException $exception, Request $request) {
+            $builder = new JsonResponseBuilder();
+            $builder->error(
+                title: 'Unauthorized',
+                detail: 'The user is not authorized to perform this action.',
+                code: Response::HTTP_FORBIDDEN
             );
             return $builder->build();
         });

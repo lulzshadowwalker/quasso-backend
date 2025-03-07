@@ -6,6 +6,7 @@ use App\Actions\DecrementCartItemAction;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Guest;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Tests\Traits\WithRestaurant;
@@ -68,7 +69,7 @@ class DecrementCartItemActionTest extends TestCase
             ->for(Cart::factory()->for(Guest::factory()->create()), 'cart')
             ->create(['quantity' => 1]);
 
-        $this->expectException(\Exception::class);
+        $this->expectException(AuthorizationException::class);
         $this->expectExceptionMessage('Forbidden');
 
         DecrementCartItemAction::execute($cartItem);
