@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class DecrementCartItemAction
 {
-    public static function execute(CartItem $cartItem): void
+    public static function execute(CartItem $cartItem): CartItem
     {
-        $cart = CartFactory::make();
+        CartFactory::make();
 
         //  TODO: *might* want to use a policy dk
         $guest = Auth::guard('guest')->user();
@@ -19,11 +19,10 @@ class DecrementCartItemAction
             throw new AuthorizationException('Forbidden');
         }
 
-        if ($cartItem->quantity > 1) {
-            $cartItem->decrement('quantity');
-            return;
-        }
+        if ($cartItem->quantity <= 1) return $cartItem;
 
-        $cart->cartItems()->where('id', $cartItem->id)->delete();
+        $cartItem->decrement('quantity');
+
+        return $cartItem->fresh();
     }
 }

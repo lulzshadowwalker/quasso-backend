@@ -8,7 +8,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 
 class IncrementCartItemAction
 {
-    public static function execute(CartItem $cartItem): void
+    public static function execute(CartItem $cartItem): CartItem
     {
         $cart = CartFactory::make();
 
@@ -18,5 +18,7 @@ class IncrementCartItemAction
         }
 
         $cartItem->increment('quantity');
+
+        return $cartItem->fresh();
     }
 }
