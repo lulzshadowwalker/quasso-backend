@@ -3,9 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class CartResource extends JsonResource
+class CartResource extends BaseJsonResource
 {
     /**
      * Transform the resource into an array.
@@ -35,9 +34,9 @@ class CartResource extends JsonResource
                     ],
                 ],
             ],
-            'link' => (object) [],
+            'links' => (object) [],
             'includes' => (object) [
-                'cartItems' => CartItemResource::collection($this->cartItems),
+                'cartItems' => $this->mergeWhen($this->includes('cartItems'), CartItemResource::collection($this->cartItems)),
             ],
         ];
     }

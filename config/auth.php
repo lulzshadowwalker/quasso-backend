@@ -42,10 +42,8 @@ return [
         ],
 
         'guest' => [
-            'driver' => 'token',
+            'driver' => 'sanctum',
             'provider' => 'guests',
-            // Set 'hash' to true if you're using hashed tokens (Sanctum does hash tokens by default)
-            'hash' => true,
         ],
     ],
 
