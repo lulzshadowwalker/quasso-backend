@@ -4,6 +4,8 @@ namespace Tests\Unit\Actions;
 
 use App\Actions\DeleteCartAction;
 use App\Models\Cart;
+use App\Models\CartItem;
+use App\Models\CartItemOption;
 use App\Models\Guest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -18,7 +20,9 @@ class DeleteCartActionTest extends TestCase
         $guest = Guest::factory()->create();
         $this->actingAs($guest, 'guest');
 
-        Cart::factory()->for($guest)->create();
+        $cart = Cart::factory()->for($guest)->create();
+        $cartItem = CartItem::factory()->for($cart)->create();
+        $cartItemOption = CartItemOption::factory()->for($cartItem)->create();
 
         $this->assertNotNull($guest->cart);
 
