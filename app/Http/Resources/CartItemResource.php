@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class CartItemResource extends BaseJsonResource
 {
@@ -23,7 +22,7 @@ class CartItemResource extends BaseJsonResource
                     'amount' => $this->unit_price,
                     'currency' => $this->restaurant->currency,
                 ]),
-                //  TODO: Return thigns like total as a Total object with tax, subtotal, and whatnot
+                //  TODO: Return things like total as a Total object with tax, subtotal, and whatnot
                 'createdAt' => $this->created_at,
                 'updatedAt' => $this->updated_at,
             ],
@@ -32,6 +31,7 @@ class CartItemResource extends BaseJsonResource
             'includes' => (object) [
                 'item' => ItemResource::make($this->item),
                 'cart' => $this->mergeWhen($this->includes('cart'), CartResource::make($this->cart)),
+                'options' => $this->mergeWhen($this->includes('options'), CartItemOptionResource::collection($this->options ?: [])),
             ],
         ];
     }

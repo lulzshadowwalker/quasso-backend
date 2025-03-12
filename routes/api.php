@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CartItemController;
+use App\Http\Controllers\Api\CartItemOptionController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ItemController;
 use App\Http\Controllers\Api\RestaurantController;
@@ -31,5 +32,6 @@ Route::domain('{restuarant:slug}.' . config('app.domain'))->group(function () {
         Route::delete('/cart/items/{cartItem}', [CartItemController::class, 'destroy'])->name('api.cart.items.destroy');
         Route::post('/cart/items/{cartItem}/increment', [CartItemController::class, 'increment'])->name('api.cart.items.increment');
         Route::post('/cart/items/{cartItem}/decrement', [CartItemController::class, 'decrement'])->name('api.cart.items.decrement');
+        Route::post('/cart/items/{cartItem}/options/{option}/toggle', [CartItemOptionController::class, 'toggle'])->name('api.cart.items.options.toggle');
     });
 });

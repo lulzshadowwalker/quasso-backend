@@ -11,7 +11,7 @@ use InvalidArgumentException;
 
 class ToggleCartItemOptionAction
 {
-    public static function execute(CartItem $cartItem, Option $option): void
+    public static function execute(CartItem $cartItem, Option $option): CartItem
     {
         $cart = CartFactory::make();
 
@@ -49,5 +49,7 @@ class ToggleCartItemOptionAction
             default:
                 throw new InvalidArgumentException('Invalid selection type');
         }
+
+        return $cartItem;
     }
 }
