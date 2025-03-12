@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\SelectionType;
 use App\Traits\BelongsToRestaurant;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -29,5 +31,10 @@ class Option extends Model
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);
+    }
+
+    public function selectionType(): Attribute
+    {
+        return Attribute::get(fn(): SelectionType => $this->optionGroup->selection_type);
     }
 }
