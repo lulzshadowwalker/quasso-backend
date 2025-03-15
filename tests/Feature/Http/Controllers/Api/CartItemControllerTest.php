@@ -239,4 +239,18 @@ class CartItemControllerTest extends TestCase
             'cartItem' => $cartItem,
         ]))->assertOk();
     }
+
+    public function test_it_creates_a_draft_item(): void
+    {
+        $guest = Guest::factory()->create();
+        $this->actingAs($guest, 'guest');
+
+        $item = Item::factory()->create();
+
+        $this->postJson(route('api.cart.items.draft', [
+            $guest->restaurant,
+            'lang' => 'en',
+            'item' => $item,
+        ]))->assertCreated();
+    }
 }

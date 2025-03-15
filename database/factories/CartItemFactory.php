@@ -25,6 +25,14 @@ class CartItemFactory extends Factory
             'item_id' => Item::factory(),
             'restaurant_id' => Restaurant::factory(),
             'cart_id' => Cart::factory(),
+            'draft' => $this->faker->boolean(),
         ];
+    }
+
+    public function draft(bool $value = true): CartItemFactory
+    {
+        return $this->state([
+            'draft' => $value,
+        ]);
     }
 }

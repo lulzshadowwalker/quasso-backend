@@ -18,6 +18,7 @@ class CartItem extends Model
             //  TODO: Money cast
             'unit_price' => 'decimal:2',
             'quantity' => 'integer',
+            'draft' => 'boolean',
         ];
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Actions\AddCartItemAction;
+use App\Actions\CreateDraftCartItemAction;
 use App\Actions\DecrementCartItemAction;
 use App\Actions\IncrementCartItemAction;
 use App\Actions\RemoveCartItemAction;
@@ -20,6 +21,12 @@ class CartItemController extends Controller
     public function store(string $restaurant, string $language, Item $item, AddCartItemAction $action, StoreCartItemRequest $request)
     {
         $cartItem = $action->execute($item, $request->quantity());
+        return CartItemResource::make($cartItem);
+    }
+
+    public function draft(string $restaurant, string $language, Item $item, CreateDraftCartItemAction $action)
+    {
+        $cartItem = $action->execute($item);
         return CartItemResource::make($cartItem);
     }
 

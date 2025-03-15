@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('quantity')->default(0);
             $table->foreignId('item_id')->constrained();
             $table->decimal('unit_price', 10, 2);
+            $table->boolean('draft')->default(false);
             $table->timestamps();
         });
     }

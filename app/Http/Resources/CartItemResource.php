@@ -21,6 +21,7 @@ class CartItemResource extends BaseJsonResource
                 'unitPrice' => PriceResource::make((object) [
                     'amount' => $this->unit_price,
                     'currency' => $this->restaurant->currency,
+                    'draft' => $this->draft,
                 ]),
                 //  TODO: Return things like total as a Total object with tax, subtotal, and whatnot
                 'createdAt' => $this->created_at,
