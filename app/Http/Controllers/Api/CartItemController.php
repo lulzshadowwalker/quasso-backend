@@ -10,6 +10,7 @@ use App\Actions\IncrementCartItemAction;
 use App\Actions\RemoveCartItemAction;
 use App\Http\Requests\DecrementCartItemRequest;
 use App\Http\Requests\IncrementCartItemRequest;
+use App\Http\Requests\PromoteDraftCartItemRequest;
 use App\Http\Requests\StoreCartItemRequest;
 use App\Http\Resources\CartItemResource;
 use App\Models\CartItem;
@@ -31,10 +32,10 @@ class CartItemController extends ApiController
         return CartItemResource::make($cartItem);
     }
 
-    public function promote(string $restaurant, string $language, CartItem $cartItem, PromoteDraftCartItemAction $action)
+    public function promote(string $restaurant, string $language, CartItem $cartItem, PromoteDraftCartItemAction $action, PromoteDraftCartItemRequest $request)
     {
         try {
-            $cartItem = $action->execute($cartItem);
+            $cartItem = $action->execute($cartItem, $request->quantity());
             return CartItemResource::make($cartItem)->response()->setStatusCode(Response::HTTP_OK);
         } catch (InvalidArgumentException $e) {
             return $this->response->error('cart item is not a draft', 'The cart item is not a draft', code: Response::HTTP_BAD_REQUEST)->build();

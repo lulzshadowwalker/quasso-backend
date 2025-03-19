@@ -32,7 +32,7 @@ class CartItemResource extends BaseJsonResource
             'includes' => (object) [
                 'item' => ItemResource::make($this->item),
                 'cart' => $this->mergeWhen($this->includes('cart'), CartResource::make($this->cart)),
-                'options' => $this->mergeWhen($this->includes('options'), CartItemOptionResource::collection($this->options ?: [])),
+                'options' => CartItemOptionResource::collection($this->cartItemOptions ?: [])
             ],
         ];
     }

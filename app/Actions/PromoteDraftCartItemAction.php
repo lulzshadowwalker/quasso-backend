@@ -10,8 +10,12 @@ use InvalidArgumentException;
 
 class PromoteDraftCartItemAction
 {
-    public static function execute(CartItem $cartItem): CartItem
+    public static function execute(CartItem $cartItem, int $quantity = 1): CartItem
     {
+        if ($quantity < 1) {
+            throw new InvalidArgumentException('Quantity must be greater than 0');
+        }
+
         $cart = CartFactory::make();
 
         //  TODO: *might* want to use a policy dk
@@ -26,6 +30,7 @@ class PromoteDraftCartItemAction
 
         $cart->cartItems()->where('id', $cartItem->id)->update([
             'draft' => false,
+            'quantity' => $quantity,
         ]);
 
         return $cartItem->fresh();

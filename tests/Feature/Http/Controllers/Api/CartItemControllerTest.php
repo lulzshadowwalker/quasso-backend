@@ -81,7 +81,7 @@ class CartItemControllerTest extends TestCase
         $cartItem = CartFactory::make()->cartItems()->create([
             'unit_price' => $item->price,
             'item_id' => $item->id,
-            'quantity' => 10,
+            'quantity' => 0,
             'draft' => true,
         ]);
 
@@ -92,7 +92,37 @@ class CartItemControllerTest extends TestCase
         ]))->assertOk();
 
         $this->assertDatabaseHas('cart_items', [
-            'quantity' => 10,
+            'quantity' => 1,
+        ]);
+    }
+
+    public function test_it_promotes_draft_cart_item_to_cart_item_with_a_specified_quantity(): void
+    {
+        $guest = Guest::factory()->create();
+        $this->actingAs($guest, 'guest');
+
+        $item = Item::factory()->create();
+        $cartItem = CartFactory::make()->cartItems()->create([
+            'unit_price' => $item->price,
+            'item_id' => $item->id,
+            'quantity' => 0,
+            'draft' => true,
+        ]);
+
+        $this->postJson(route('api.cart.items.promote', [
+            $guest->restaurant,
+            'lang' => 'en',
+            'cartItem' => $cartItem,
+        ]), [
+            'data' => [
+                'attributes' => [
+                    'quantity' => 3,
+                ],
+            ],
+        ])->assertOk();
+
+        $this->assertDatabaseHas('cart_items', [
+            'quantity' => 3,
         ]);
     }
 
