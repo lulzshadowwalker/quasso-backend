@@ -30,6 +30,7 @@ Route::domain('{restuarant:slug}.' . config('app.domain'))->group(function () {
 
         Route::post('/cart/items/{item}', [CartItemController::class, 'store'])->name('api.cart.items.store');
         Route::post('/cart/items/{item}/draft', [CartItemController::class, 'draft'])->name('api.cart.items.draft');
+        Route::post('/cart/items/{cartItem}/promote', [CartItemController::class, 'promote'])->name('api.cart.items.promote');
         Route::delete('/cart/items/{cartItem}', [CartItemController::class, 'destroy'])->name('api.cart.items.destroy');
         Route::post('/cart/items/{cartItem}/increment', [CartItemController::class, 'increment'])->name('api.cart.items.increment');
         Route::post('/cart/items/{cartItem}/decrement', [CartItemController::class, 'decrement'])->name('api.cart.items.decrement');

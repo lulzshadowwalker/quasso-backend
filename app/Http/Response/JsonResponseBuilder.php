@@ -41,6 +41,10 @@ class JsonResponseBuilder implements ResponseBuilder
 
     public function error(string $title, string $detail, int $code = null, array $meta = [], string $pointer = null, string $indicator = null): self
     {
+        if (!$code) {
+            throw new \InvalidArgumentException('Error code is required');
+        }
+
         $error = [
             'status' => (string) $code,
             'code' => Response::$statusTexts[$code] ?: (string) $code,

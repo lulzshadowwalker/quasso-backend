@@ -11,8 +11,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Tests\Traits\WithRestaurant;
 
-//  TODO: Add $touches = ['cart'] to CartItem model
-
 class RemoveCartItemActionTest extends TestCase
 {
     use RefreshDatabase, WithRestaurant;

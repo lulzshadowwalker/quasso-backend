@@ -7,6 +7,7 @@ use App\Http\Resources\CartItemResource;
 use App\Models\Guest;
 use App\Models\Item;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 use Tests\Traits\WithRestaurant;
 
@@ -69,6 +70,50 @@ class CartItemControllerTest extends TestCase
             'lang' => 'en',
             'cartItem' => $cartItem,
         ]))->assertNoContent();
+    }
+
+    public function test_it_promotes_draft_cart_item_to_cart_item(): void
+    {
+        $guest = Guest::factory()->create();
+        $this->actingAs($guest, 'guest');
+
+        $item = Item::factory()->create();
+        $cartItem = CartFactory::make()->cartItems()->create([
+            'unit_price' => $item->price,
+            'item_id' => $item->id,
+            'quantity' => 10,
+            'draft' => true,
+        ]);
+
+        $this->postJson(route('api.cart.items.promote', [
+            $guest->restaurant,
+            'lang' => 'en',
+            'cartItem' => $cartItem,
+        ]))->assertOk();
+
+        $this->assertDatabaseHas('cart_items', [
+            'quantity' => 10,
+        ]);
+    }
+
+    public function test_it_throws_invalid_argument_exception_when_promoting_a_non_draft_cart_item(): void
+    {
+        $guest = Guest::factory()->create();
+        $this->actingAs($guest, 'guest');
+
+        $item = Item::factory()->create();
+        $cartItem = CartFactory::make()->cartItems()->create([
+            'unit_price' => $item->price,
+            'item_id' => $item->id,
+            'quantity' => 10,
+            'draft' => false,
+        ]);
+
+        $this->postJson(route('api.cart.items.promote', [
+            $guest->restaurant,
+            'lang' => 'en',
+            'cartItem' => $cartItem,
+        ]))->assertStatus(Response::HTTP_BAD_REQUEST);
     }
 
     public function test_it_increments_an_item_quantity_in_the_cart(): void

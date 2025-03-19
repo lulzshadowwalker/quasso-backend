@@ -22,6 +22,8 @@ class CartItem extends Model
         ];
     }
 
+    protected $touches = ['cart'];
+
     public function cart(): BelongsTo
     {
         return $this->belongsTo(Cart::class);
