@@ -3,6 +3,7 @@
 namespace App\Models\Scopes;
 
 use App\Factories\RestaurantFactory;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
@@ -19,7 +20,7 @@ class RestaurantScope implements Scope
 
         $restaurant = RestaurantFactory::make();
         if (! $restaurant) {
-            throw new \Exception('Restaurant not found');
+            throw new Exception('Restaurant not found');
         }
 
         $builder->where('restaurant_id', $restaurant->id);

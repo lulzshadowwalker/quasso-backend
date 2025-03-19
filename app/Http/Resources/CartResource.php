@@ -36,7 +36,7 @@ class CartResource extends BaseJsonResource
             ],
             'links' => (object) [],
             'includes' => (object) [
-                'cartItems' => $this->mergeWhen($this->includes('cartItems'), CartItemResource::collection($this->cartItems)),
+                'cartItems' => $this->mergeWhen($this->includes('cartItems'), CartItemResource::collection($this->cartItems()->where('draft', false)->get())),
             ],
         ];
     }

@@ -14,8 +14,8 @@ trait BelongsToRestaurant
     {
         static::addGlobalScope(RestaurantScope::class);
 
-        if (! RestaurantFactory::make()) {
-            throw new Exception('Restaurant not found');
+        if (! app()->runningInConsole() && ! RestaurantFactory::make()) {
+           throw new Exception('Restaurant not found');
         }
 
         static::creating(function ($model) {
