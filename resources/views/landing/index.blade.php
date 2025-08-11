@@ -8,6 +8,17 @@
         href="https://fonts.googleapis.com/css2?display=swap&amp;family=Manrope%3Awght%40400%3B500%3B700%3B800&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
         onload="this.rel='stylesheet'" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    screens: {
+                        'xs': '475px',
+                    }
+                }
+            }
+        }
+    </script>
     <style type="text/tailwindcss">
         @keyframes marquee-left {
             0% {
@@ -187,21 +198,21 @@
         </div>
         <main class="flex-1">
             <section
-                class="relative flex h-[90vh] w-full items-center justify-center bg-[var(--background-color)] px-4 sm:px-6 lg:px-8">
+                class="relative flex min-h-[100vh] sm:min-h-[90vh] md:h-[90vh] w-full items-center justify-center bg-[var(--background-color)] px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-0">
                 <div class="absolute inset-0 z-0">
                     <img alt="Bright and airy restaurant interior" class="h-full w-full object-cover"
                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuBirPDkqVHtG3Hfmz2D6jR44Om8tI5wlx1dqc5JEhPuzsKdAqD3sYgidGp-v0K2CyDAMHH818aOfMDX29UBDc_UzKVSNAr4xD_DLeFUEmHm2376uKvaGLAN0XD4vTco2pIV3aDedzGHhs3WNxZU1JUJsQmXQ4saAiqnxzdi2-7-2z0R0dOGW8W9OH2CxRPKVrp4uV2uPRpI_asQQIE74cAZDF1b5oAfC7KX_-R6dtjxuoGkClhZ433OYIs3jQVgr1iQ5tvOUg1z-fnT" />
                     <div class="absolute inset-0 bg-gradient-to-b from-white/20 via-white/80 to-white"></div>
                 </div>
-                <div class="relative z-10 flex max-w-4xl flex-col items-center gap-6 text-center">
+                <div class="relative z-10 flex w-full max-w-6xl flex-col items-center gap-6 sm:gap-8 md:gap-10 text-center">
                     <h1
-                        class="text-4xl font-black leading-tight tracking-tighter text-[var(--text-primary)] sm:text-5xl md:text-6xl lg:text-7xl">
+                        class="text-3xl font-black leading-tight tracking-tighter text-[var(--text-primary)] xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl max-w-5xl">
                         The All-In-One Platform for Restaurant Success</h1>
-                    <p class="max-w-2xl text-lg text-[var(--text-secondary)] md:text-xl">DineEase empowers restaurants
+                    <p class="max-w-xl sm:max-w-2xl lg:max-w-3xl text-base sm:text-lg md:text-xl lg:text-2xl text-[var(--text-secondary)] leading-relaxed">DineEase empowers restaurants
                         to thrive. From seamless online ordering to efficient table management, we provide the tools you
                         need to streamline operations, enhance customer experiences, and boost your bottom line.</p>
                     <button
-                        class="flex h-12 min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full bg-green-500 px-6 text-base font-bold leading-normal tracking-[0.015em] text-white transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2">
+                        class="flex h-11 sm:h-12 md:h-14 min-w-[200px] sm:min-w-[240px] md:min-w-[280px] max-w-[90vw] sm:max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full bg-green-500 px-4 sm:px-6 md:px-8 text-sm sm:text-base md:text-lg font-bold leading-normal tracking-[0.015em] text-white transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2">
                         <span class="truncate">Get Started for Free</span>
                     </button>
                 </div>
